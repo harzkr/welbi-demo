@@ -1,10 +1,12 @@
 import React from "react";
 import { Typography, TextField, Button } from "@mui/material";
 import email_valid_pattern from "../../utils/constants";
+interface LandingProps {
+  handleSubmit: (values: string) => void;
+}
 
-const Landing = () => {
-
-   const [email, setEmail] = React.useState("");
+const Landing : React.FunctionComponent<LandingProps> = (props:LandingProps) => {
+  const [email, setEmail] = React.useState("");
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -39,9 +41,8 @@ const Landing = () => {
           }}
           variant="contained"
           color="secondary"
-          disabled={
-            email_valid_pattern.test(email) ? false : true
-          }
+          disabled={email_valid_pattern.test(email) ? false : true}
+          onClick={() => props.handleSubmit(email)}
         >
           Submit
         </Button>
