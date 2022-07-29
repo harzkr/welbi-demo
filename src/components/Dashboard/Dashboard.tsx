@@ -7,7 +7,7 @@ interface DashboardProps {
 
 const Dashboard: React.FC<DashboardProps> = (props:DashboardProps) => {
     console.log(props);
-
+    
     return <div>Dashboard</div>;
 }
 
