@@ -1,26 +1,51 @@
 import React from "react";
 import { Typography, TextField, Button } from "@mui/material";
+import email_valid_pattern from "../utils/constants";
 
 const Landing = () => {
 
+   const [email, setEmail] = React.useState("");
+
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
-  }
+    setEmail(e.target.value);
+  };
 
   return (
     <div>
-      <Typography variant="h1">Enter your email</Typography>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <Typography variant="h6">Enter your email</Typography>
 
-      <TextField
-        id="email"
-        label="Email"
-        variant="filled"
-        onChange={handleInput}
-      />
+        <TextField
+          id="email"
+          label="Email"
+          variant="filled"
+          onChange={handleInput}
+          style={{
+            marginTop: "1rem",
+          }}
+        />
 
-      <Button variant="contained" color="primary">
-        Submit
-      </Button>
+        <Button
+          style={{
+            marginTop: "1rem",
+          }}
+          variant="contained"
+          color="secondary"
+          disabled={
+            email_valid_pattern.test(email) ? false : true
+          }
+        >
+          Submit
+        </Button>
+      </div>
     </div>
   );
 };
