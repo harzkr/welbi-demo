@@ -1,15 +1,14 @@
 import React from 'react';
 import './App.css';
-import Dashboard from './components/Dashboard/DashboardContainer';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Landing from './components/Landing/LandingContainer';
+import Routes from './Routes';
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Landing/>
+      <Routes/>
     </QueryClientProvider>
   );
 }
