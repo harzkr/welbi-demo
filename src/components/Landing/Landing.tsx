@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography, TextField, Button } from "@mui/material";
-import email_valid_pattern from "../../../utils/constants";
+import email_valid_pattern from "../../utils/constants";
 
 const Landing = () => {
 
