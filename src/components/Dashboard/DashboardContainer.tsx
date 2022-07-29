@@ -24,7 +24,7 @@ const DashboardContainer = () => {
   const programs = useQuery(["programs"], getPrograms);
   const residents = useQuery(["residents"], getResidents);
 
-  return <Dashboard />;
+  return <Dashboard programs={programs} residents={residents} />;
 };
 
 export default DashboardContainer;
