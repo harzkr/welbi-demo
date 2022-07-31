@@ -292,8 +292,8 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
       <TabPanel value={value} index={1}>
         <div>
           <DebouncedInput
-            value={globalFilterPrograms ?? ""}
-            onChange={(value) => setGlobalFilterPrograms(String(value))}
+            value={globalFilterAttendees ?? ""}
+            onChange={(value) => setGlobalFilterAttendees(String(value))}
             label="Search all attendees"
             textfieldId="search-attendees"
           />
