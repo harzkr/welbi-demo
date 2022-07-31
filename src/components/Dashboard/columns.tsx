@@ -17,7 +17,7 @@ interface Programs {
   
   interface Attendees {
     id: string;
-    fullName: string;
+    name: string;
     programsAttended: string[];
   }
 
@@ -72,8 +72,8 @@ export const columnsPrograms = [
 ];
 
 export const columnsAttendees = [
-  columnHelperAttendees.accessor("fullName", {
-    id: "fullName",
+  columnHelperAttendees.accessor("name", {
+    id: "name",
     cell: (info) => info.getValue(),
     header: () => <Typography style={{ fontWeight: "bold" }}>Name</Typography>,
   }),

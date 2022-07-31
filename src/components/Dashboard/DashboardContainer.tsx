@@ -39,38 +39,36 @@ const DashboardContainer = () => {
 
       programs.data.data.map((program: any) => {
         const programResidents = program.attendance.map((resident: any) => {
-          const presentResident = resAttendees.find(
+          const residentData = residents.data.data.find(
             (o: any) => o.id === resident.residentId
           );
 
-          const residentData = presentResident
-            ? presentResident
-            : residents.data.data.find(
-                (o: any) => o.id === resident.residentId
-              );
-
-          if (presentResident) {
-            let _program = presentResident.attendance.find(
-              (o: any) => o.programId === program.id
-            );
-
-            if (_program && _program.status === "Active") {
-              presentResident.programsAttended = presentResident.programsAttended + ", " + program.name;
-            }
-          } else {
-            resAttendees.push({
-              ...residentData,
-              fullName: residentData.firstName + " " + residentData.lastName,
-              programsAttended: program.name,
-            });
-          }
-
-          return residentData?.firstName + " " + residentData?.lastName;
+          return residentData?.name;
         });
 
         resPrograms.push({
           ...program,
-          programResidents: programResidents.join(', '),
+          programResidents: programResidents.join(", "),
+        });
+      });
+
+      residents.data.data.map((resident: any) => {
+        const attendedPrograms: any[] = [];
+
+        resident.attendance.map((program: any) => {
+          if (program.status === "ACTIVE") {
+            const programData = programs.data.data.find(
+              (o: any) => o.id === program.programId
+            );
+
+            if (programData && !attendedPrograms.includes(programData.name)) {
+              attendedPrograms.push(programData.name);
+            }
+          }
+        });
+        resAttendees.push({
+          ...resident,
+          programsAttended: attendedPrograms.join(", "),
         });
       });
 
@@ -78,6 +76,8 @@ const DashboardContainer = () => {
       setAllAttendees(resAttendees);
     }
   }, [programs, residents]);
+
+  console.log(residents, programs,allAttendees);
 
   return <Dashboard allPrograms={allPrograms} allAttendees={allAttendees} />;
 };
