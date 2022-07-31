@@ -56,7 +56,7 @@ const DashboardContainer = () => {
         const attendedPrograms: any[] = [];
 
         resident.attendance.map((program: any) => {
-          if (program.status === "ACTIVE") {
+          if (program.status === "Active") {
             const programData = programs.data.data.find(
               (o: any) => o.id === program.programId
             );
@@ -77,7 +77,7 @@ const DashboardContainer = () => {
     }
   }, [programs, residents]);
 
-  console.log(residents, programs,allAttendees);
+  console.log(residents, programs, allAttendees);
 
   return <Dashboard allPrograms={allPrograms} allAttendees={allAttendees} />;
 };
