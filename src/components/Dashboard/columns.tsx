@@ -52,15 +52,15 @@ export const columnsPrograms = [
       return dayjs(info.getValue()).format("h:mm a, D MMM YYYY");
     },
     header: () => (
-      <Typography style={{ fontWeight: "bold" }}>Starts</Typography>
-    ),
+      <Typography style={{ fontWeight: "bold", width:180 }}>Starts</Typography>
+    )
   }),
   columnHelper.accessor("end", {
     id: "end",
     cell: (info) => {
       return dayjs(info.getValue()).format("h:mm a, D MMM YYYY");
     },
-    header: () => <Typography style={{ fontWeight: "bold" }}>Ends</Typography>,
+    header: () => <Typography style={{ fontWeight: "bold", width:180 }}>Ends</Typography>,
   }),
   columnHelper.accessor("programResidents", {
     id: "programResidents",
