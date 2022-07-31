@@ -42,6 +42,12 @@ interface Programs {
   end: string;
 }
 
+interface Attendees {
+  id: string;
+  fullName: string;
+  programsAttended: string[];
+}
+
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
 
@@ -70,8 +76,9 @@ function a11yProps(index: number) {
 }
 
 const columnHelper = createColumnHelper<Programs>();
+const columnHelperAttendees = createColumnHelper<Attendees>();
 
-const columns = [
+const columnsPrograms = [
   columnHelper.accessor("name", {
     id: "name",
     cell: (info) => info.getValue(),
@@ -118,6 +125,21 @@ const columns = [
   }),
 ];
 
+const columnsAttendees = [
+  columnHelperAttendees.accessor("fullName", {
+    id: "fullName",
+    cell: (info) => info.getValue(),
+    header: () => <Typography style={{ fontWeight: "bold" }}>Name</Typography>,
+  }),
+  columnHelperAttendees.accessor("programsAttended", {
+    id: "programsAttended",
+    cell: (info) => info.getValue().join(", "),
+    header: () => (
+      <Typography style={{ fontWeight: "bold" }}>Programs Attended</Typography>
+    ),
+  }),
+];
+
 const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
   console.log(props.allAttendees);
   const [value, setValue] = React.useState(0);
@@ -126,9 +148,15 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
     setValue(newValue);
   };
 
-  const table = useReactTable({
+  const tablePrograms = useReactTable({
     data: props.allPrograms,
-    columns,
+    columns: columnsPrograms,
+    getCoreRowModel: getCoreRowModel(),
+  });
+
+  const tableAttendees = useReactTable({
+    data: props.allAttendees,
+    columns: columnsAttendees,
     getCoreRowModel: getCoreRowModel(),
   });
 
@@ -150,7 +178,7 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
-              {table.getHeaderGroups().map((headerGroup) => (
+              {tablePrograms.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
                     <TableCell key={header.id}>
@@ -166,7 +194,7 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
               ))}
             </TableHead>
             <TableBody>
-              {table.getRowModel().rows.map((row) => (
+              {tablePrograms.getRowModel().rows.map((row) => (
                 <TableRow key={row.id}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -186,7 +214,7 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
-              {table.getHeaderGroups().map((headerGroup) => (
+              {tableAttendees.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
                     <TableCell key={header.id}>
@@ -202,7 +230,7 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
               ))}
             </TableHead>
             <TableBody>
-              {table.getRowModel().rows.map((row) => (
+              {tableAttendees.getRowModel().rows.map((row) => (
                 <TableRow key={row.id}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

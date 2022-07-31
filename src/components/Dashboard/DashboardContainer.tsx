@@ -55,6 +55,7 @@ const DashboardContainer = () => {
           } else {
             resAttendees.push({
               ...residentData,
+              fullName: residentData.firstName + " " + residentData.lastName,
               programsAttended: [program.name],
             });
           }
