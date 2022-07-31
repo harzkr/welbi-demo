@@ -11,6 +11,7 @@ import {
   Tab,
   Tabs,
   Box,
+  Button,
 } from "@mui/material";
 import {
   createColumnHelper,
@@ -141,7 +142,7 @@ const columnsAttendees = [
 ];
 
 const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
-  console.log(props.allAttendees);
+  console.log(props.allAttendees, props.allPrograms);
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -174,6 +175,24 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
           <Tab label="Residents" {...a11yProps(1)} />
         </Tabs>
       </Box>
+
+      <div
+        style={{
+          borderBottom: 1,
+          borderColor: "divider",
+          display: "flex",
+          justifyContent: "space-evenly",
+          height: 64,
+          marginTop: 24,
+        }}
+      >
+        <Button style={{ height: 40 }} variant="outlined">
+          <Typography>Add Program</Typography>
+        </Button>
+        <Button style={{ height: 40 }} variant="outlined" color="secondary">
+          <Typography>Add Attendee</Typography>
+        </Button>
+      </div>
       <TabPanel value={value} index={0}>
         <TableContainer component={Paper}>
           <Table>
