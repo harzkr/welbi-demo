@@ -27,6 +27,7 @@ import {
 } from "@tanstack/match-sorter-utils";
 import { DebouncedInput } from "../Shared/DebounceInput";
 import { columnsPrograms, columnsAttendees } from "./columns";
+import './styles.css';
 
 declare module "@tanstack/table-core" {
   interface FilterFns {
@@ -139,16 +140,7 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
         </Tabs>
       </Box>
 
-      <div
-        style={{
-          borderBottom: 1,
-          borderColor: "divider",
-          display: "flex",
-          justifyContent: "space-evenly",
-          height: 64,
-          marginTop: 24,
-        }}
-      >
+      <div className="buttons__group">
         <Button style={{ height: 40 }} variant="outlined">
           <Typography>Add Program</Typography>
         </Button>
