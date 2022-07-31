@@ -15,7 +15,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import * as dayjs from 'dayjs'
+import dayjs from "dayjs";
 
 interface DashboardProps {
   allPrograms: any[];
@@ -28,8 +28,8 @@ interface Programs {
   location: string;
   dimension: string;
   facilitators: string[];
-  startDate: string;
-  endDate: string;
+  start: string;
+  end: string;
 }
 
 const columnHelper = createColumnHelper<Programs>();
@@ -50,23 +50,20 @@ const columns = [
     cell: (info) => info.getValue(),
     header: () => <Typography>Dimension</Typography>,
   }),
-  columnHelper.accessor("facilitators", {
-    id: "facilitators",
-    cell: (info) => info.getValue().join(", "),
-    header: () => <Typography>Facilitators</Typography>,
-  }),
-  columnHelper.accessor("startDate", {
-    id: "startDate",
-    cell: (info) => info.getValue(),
+  columnHelper.accessor("start", {
+    id: "start",
+    cell: (info) => {
+      return dayjs(info.getValue()).format("h:mm a, D MMM YYYY");
+    },
     header: () => <Typography>Starts</Typography>,
   }),
-  columnHelper.accessor("endDate", {
-    id: "endDate",
+  columnHelper.accessor("end", {
+    id: "end",
     cell: (info) => {
-        return dayjs(info.getValue()).format('MM/DD/YYYY')
+      return dayjs(info.getValue()).format("h:mm a, D MMM YYYY");
     },
     header: () => <Typography>Ends</Typography>,
-  }),  
+  }),
   columnHelper.accessor("programResidents", {
     id: "programResidents",
     cell: (info) => info.getValue().join(", "),
@@ -75,6 +72,8 @@ const columns = [
 ];
 
 const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
+    console.log(props)
+
   const table = useReactTable({
     data: props.allPrograms,
     columns,
