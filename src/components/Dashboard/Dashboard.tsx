@@ -74,36 +74,46 @@ const columns = [
   columnHelper.accessor("name", {
     id: "name",
     cell: (info) => info.getValue(),
-    header: () => <Typography>Program</Typography>,
+    header: () => (
+      <Typography style={{ fontWeight: "bold" }}>Program</Typography>
+    ),
   }),
   columnHelper.accessor("location", {
     id: "location",
     cell: (info) => info.getValue(),
-    header: () => <Typography>Location</Typography>,
+    header: () => (
+      <Typography style={{ fontWeight: "bold" }}>Location</Typography>
+    ),
   }),
   columnHelper.accessor("dimension", {
     id: "dimension",
     cell: (info) => info.getValue(),
-    header: () => <Typography>Dimension</Typography>,
+    header: () => (
+      <Typography style={{ fontWeight: "bold" }}>Dimension</Typography>
+    ),
   }),
   columnHelper.accessor("start", {
     id: "start",
     cell: (info) => {
       return dayjs(info.getValue()).format("h:mm a, D MMM YYYY");
     },
-    header: () => <Typography>Starts</Typography>,
+    header: () => (
+      <Typography style={{ fontWeight: "bold" }}>Starts</Typography>
+    ),
   }),
   columnHelper.accessor("end", {
     id: "end",
     cell: (info) => {
       return dayjs(info.getValue()).format("h:mm a, D MMM YYYY");
     },
-    header: () => <Typography>Ends</Typography>,
+    header: () => <Typography style={{ fontWeight: "bold" }}>Ends</Typography>,
   }),
   columnHelper.accessor("programResidents", {
     id: "programResidents",
     cell: (info) => info.getValue().join(", "),
-    header: () => <Typography>Attendees</Typography>,
+    header: () => (
+      <Typography style={{ fontWeight: "bold" }}>Attendees</Typography>
+    ),
   }),
 ];
 
@@ -123,7 +133,7 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
   return (
     <div>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs value={value} onChange={handleChange} aria-label="tabs">
+        <Tabs value={value} onChange={handleChange} aria-label="tabs" centered>
           <Tab label="Programs" {...a11yProps(0)} />
           <Tab label="Residents" {...a11yProps(1)} />
         </Tabs>
