@@ -28,7 +28,12 @@ const DashboardContainer = () => {
   const residents = useQuery(["residents"], getResidents);
 
   React.useEffect(() => {
-    if (programs.data && residents.data && allPrograms.length === 0) {
+    if (
+      programs.data &&
+      residents.data &&
+      allPrograms.length !== programs.data.data.length &&
+      allAttendees.length !== residents.data.data.length
+    ) {
       const resPrograms: any = [];
       const resAttendees: any = [];
 
