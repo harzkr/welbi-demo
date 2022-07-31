@@ -12,7 +12,6 @@ import {
   Tabs,
   Box,
   Button,
-  TextField,
 } from "@mui/material";
 import {
   createColumnHelper,
@@ -27,6 +26,7 @@ import {
   RankingInfo,
   rankItem,
 } from "@tanstack/match-sorter-utils";
+import { DebouncedInput } from "../Shared/DebounceInput";
 
 import dayjs from "dayjs";
 
@@ -334,43 +334,5 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
     </div>
   );
 };
-
-function DebouncedInput({
-  value: initialValue,
-  onChange,
-  debounce = 500,
-  label,
-  textfieldId,
-}: {
-  value: string | number;
-  onChange: (value: string | number) => void;
-  debounce?: number;
-  label: string;
-  textfieldId?: string;
-} & Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange">) {
-  const [value, setValue] = React.useState(initialValue);
-
-  React.useEffect(() => {
-    setValue(initialValue);
-  }, [initialValue]);
-
-  React.useEffect(() => {
-    const timeout = setTimeout(() => {
-      onChange(value);
-    }, debounce);
-
-    return () => clearTimeout(timeout);
-  }, [value]);
-
-  return (
-    <TextField
-      id={textfieldId}
-      label={label}
-      variant="outlined"
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-    />
-  );
-}
 
 export default Dashboard;
