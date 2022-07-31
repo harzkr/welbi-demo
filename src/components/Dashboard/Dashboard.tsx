@@ -175,13 +175,9 @@ const columnsAttendees = [
 ];
 
 const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
-  console.log(props.allAttendees, props.allPrograms);
-
   const [globalFilterPrograms, setGlobalFilterPrograms] = React.useState("");
   const [globalFilterAttendees, setGlobalFilterAttendees] = React.useState("");
   const [value, setValue] = React.useState(0);
-
-  console.log(globalFilterPrograms, globalFilterAttendees);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -254,8 +250,8 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
           <DebouncedInput
             value={globalFilterPrograms ?? ""}
             onChange={(value) => setGlobalFilterPrograms(String(value))}
-            className="p-2 font-lg shadow border border-block"
-            placeholder="Search all columns..."
+            label="Search all programs"
+            textfieldId="search-all-programs"
           />
         </div>
         <TableContainer component={Paper}>
@@ -295,12 +291,11 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <div>
-          <TextField
-            id="outlined-attendees-search"
-            label="Search Attendees"
-            variant="outlined"
-            value={globalFilterAttendees ?? ""}
-            onChange={(value) => setGlobalFilterAttendees(String(value))}
+          <DebouncedInput
+            value={globalFilterPrograms ?? ""}
+            onChange={(value) => setGlobalFilterPrograms(String(value))}
+            label="Search all attendees"
+            textfieldId="search-attendees"
           />
         </div>
         <TableContainer component={Paper}>
@@ -346,11 +341,14 @@ function DebouncedInput({
   value: initialValue,
   onChange,
   debounce = 500,
-  ...props
+  label,
+  textfieldId,
 }: {
   value: string | number;
   onChange: (value: string | number) => void;
   debounce?: number;
+  label: string;
+  textfieldId?: string;
 } & Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange">) {
   const [value, setValue] = React.useState(initialValue);
 
@@ -367,8 +365,10 @@ function DebouncedInput({
   }, [value]);
 
   return (
-    <input
-      {...props}
+    <TextField
+      id={textfieldId}
+      label={label}
+      variant="outlined"
       value={value}
       onChange={(e) => setValue(e.target.value)}
     />
