@@ -1885,6 +1885,18 @@
     "@types/use-sync-external-store" "^0.0.3"
     use-sync-external-store "^1.2.0"
 
+"@tanstack/react-table@^8.5.2":
+  version "8.5.2"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-table/-/react-table-8.5.2.tgz#1e547649b8f057eddbe769b04612914a2efa5d09"
+  integrity sha512-CbNOay5FZHjU5EKiqik+Q8/gkUJfzH07KzYnnpGyqbfeocGZZckDblw7YwGMQ5/8Y0jgmobTYrMSqd27wtPdrA==
+  dependencies:
+    "@tanstack/table-core" "8.5.2"
+
+"@tanstack/table-core@8.5.2":
+  version "8.5.2"
+  resolved "https://registry.yarnpkg.com/@tanstack/table-core/-/table-core-8.5.2.tgz#097d88131bdf72eca0d4554270922e250e944a92"
+  integrity sha512-uhmhqeSNL2un0ssO5fZFtuwgvloBZdc2NFu8Rodzp4uPc1LfEWPhvrfoG9/L7FLRHC2ImlkmQgpVOakNZk9zgQ==
+
 "@testing-library/dom@^8.5.0":
   version "8.16.0"
   resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-8.16.0.tgz#d6fc50250aed17b1035ca1bd64655e342db3936a"
@@ -7603,11 +7615,6 @@ react-scripts@5.0.1:
     workbox-webpack-plugin "^6.4.1"
   optionalDependencies:
     fsevents "^2.3.2"
-
-react-table@^7.8.0:
-  version "7.8.0"
-  resolved "https://registry.yarnpkg.com/react-table/-/react-table-7.8.0.tgz#07858c01c1718c09f7f1aed7034fcfd7bda907d2"
-  integrity sha512-hNaz4ygkZO4bESeFfnfOft73iBUj8K5oKi1EcSHPAibEydfsX2MyU6Z8KCr3mv3C9Kqqh71U+DhZkFvibbnPbA==
 
 react-transition-group@^4.4.2:
   version "4.4.2"
