@@ -45,7 +45,13 @@ const DashboardContainer = () => {
               );
 
           if (presentResident) {
-            presentResident.programsAttended.push(program.name);
+            let _program = presentResident.attendance.find(
+              (o: any) => o.programId === program.id
+            );
+
+            if (_program && _program.status === "Active") {
+              presentResident.programsAttended.push(program.name);
+            }
           } else {
             resAttendees.push({
               ...residentData,
