@@ -14,7 +14,6 @@ import {
   Button,
 } from "@mui/material";
 import {
-  createColumnHelper,
   flexRender,
   getCoreRowModel,
   useReactTable,
@@ -27,8 +26,7 @@ import {
   rankItem,
 } from "@tanstack/match-sorter-utils";
 import { DebouncedInput } from "../Shared/DebounceInput";
-
-import dayjs from "dayjs";
+import { columnsPrograms, columnsAttendees } from "./columns";
 
 declare module "@tanstack/table-core" {
   interface FilterFns {
@@ -63,23 +61,6 @@ interface DashboardProps {
   allAttendees: any[];
 }
 
-interface Programs {
-  name: string;
-  id: string;
-  programResidents: string[];
-  location: string;
-  dimension: string;
-  facilitators: string[];
-  start: string;
-  end: string;
-}
-
-interface Attendees {
-  id: string;
-  fullName: string;
-  programsAttended: string[];
-}
-
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
 
@@ -106,71 +87,6 @@ function a11yProps(index: number) {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
-
-const columnHelper = createColumnHelper<Programs>();
-const columnHelperAttendees = createColumnHelper<Attendees>();
-
-const columnsPrograms = [
-  columnHelper.accessor("name", {
-    id: "name",
-    cell: (info) => info.getValue(),
-    header: () => (
-      <Typography style={{ fontWeight: "bold" }}>Program</Typography>
-    ),
-  }),
-  columnHelper.accessor("location", {
-    id: "location",
-    cell: (info) => info.getValue(),
-    header: () => (
-      <Typography style={{ fontWeight: "bold" }}>Location</Typography>
-    ),
-  }),
-  columnHelper.accessor("dimension", {
-    id: "dimension",
-    cell: (info) => info.getValue(),
-    header: () => (
-      <Typography style={{ fontWeight: "bold" }}>Dimension</Typography>
-    ),
-  }),
-  columnHelper.accessor("start", {
-    id: "start",
-    cell: (info) => {
-      return dayjs(info.getValue()).format("h:mm a, D MMM YYYY");
-    },
-    header: () => (
-      <Typography style={{ fontWeight: "bold" }}>Starts</Typography>
-    ),
-  }),
-  columnHelper.accessor("end", {
-    id: "end",
-    cell: (info) => {
-      return dayjs(info.getValue()).format("h:mm a, D MMM YYYY");
-    },
-    header: () => <Typography style={{ fontWeight: "bold" }}>Ends</Typography>,
-  }),
-  columnHelper.accessor("programResidents", {
-    id: "programResidents",
-    cell: (info) => info.getValue(),
-    header: () => (
-      <Typography style={{ fontWeight: "bold" }}>Attendees</Typography>
-    ),
-  }),
-];
-
-const columnsAttendees = [
-  columnHelperAttendees.accessor("fullName", {
-    id: "fullName",
-    cell: (info) => info.getValue(),
-    header: () => <Typography style={{ fontWeight: "bold" }}>Name</Typography>,
-  }),
-  columnHelperAttendees.accessor("programsAttended", {
-    id: "programsAttended",
-    cell: (info) => info.getValue(),
-    header: () => (
-      <Typography style={{ fontWeight: "bold" }}>Programs Attended</Typography>
-    ),
-  }),
-];
 
 const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
   const [globalFilterPrograms, setGlobalFilterPrograms] = React.useState("");
