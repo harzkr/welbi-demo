@@ -5,6 +5,7 @@ import { ApiResponse } from "../../utils/ApiResponse";
 
 const DashboardContainer = () => {
   const [allPrograms, setAllPrograms] = React.useState([]);
+  const [allAttendees, setAllAttendees] = React.useState([]);
 
   const getPrograms = async () => {
     try {
@@ -29,11 +30,28 @@ const DashboardContainer = () => {
   React.useEffect(() => {
     if (programs.data && residents.data && allPrograms.length === 0) {
       const resPrograms: any = [];
+      const resAttendees: any = [];
+
       programs.data.data.map((program: any) => {
         const programResidents = program.attendance.map((resident: any) => {
-          const residentData = residents.data.data.find(
+          const presentResident = resAttendees.find(
             (o: any) => o.id === resident.residentId
           );
+
+          const residentData = presentResident
+            ? presentResident
+            : residents.data.data.find(
+                (o: any) => o.id === resident.residentId
+              );
+
+          if (presentResident) {
+            presentResident.programsAttended.push(program.name);
+          } else {
+            resAttendees.push({
+              ...residentData,
+              programsAttended: [program.name],
+            });
+          }
 
           return residentData?.firstName + " " + residentData?.lastName;
         });
@@ -43,11 +61,13 @@ const DashboardContainer = () => {
           programResidents,
         });
       });
+
       setAllPrograms(resPrograms);
+      setAllAttendees(resAttendees);
     }
   }, [programs, residents]);
 
-  return <Dashboard allPrograms={allPrograms} />;
+  return <Dashboard allPrograms={allPrograms} allAttendees={allAttendees} />;
 };
 
 export default DashboardContainer;

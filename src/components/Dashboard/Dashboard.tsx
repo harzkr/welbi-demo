@@ -26,6 +26,22 @@ interface TabPanelProps {
   value: number;
 }
 
+interface DashboardProps {
+  allPrograms: any[];
+  allAttendees: any[];
+}
+
+interface Programs {
+  name: string;
+  id: string;
+  programResidents: string[];
+  location: string;
+  dimension: string;
+  facilitators: string[];
+  start: string;
+  end: string;
+}
+
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
 
@@ -51,21 +67,6 @@ function a11yProps(index: number) {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`,
   };
-}
-
-interface DashboardProps {
-  allPrograms: any[];
-}
-
-interface Programs {
-  name: string;
-  id: string;
-  programResidents: string[];
-  location: string;
-  dimension: string;
-  facilitators: string[];
-  start: string;
-  end: string;
 }
 
 const columnHelper = createColumnHelper<Programs>();
@@ -118,6 +119,7 @@ const columns = [
 ];
 
 const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
+  console.log(props.allAttendees);
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
