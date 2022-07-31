@@ -19,38 +19,38 @@ import {
   getCoreRowModel,
   useReactTable,
   FilterFns,
-  FilterFn
+  FilterFn,
 } from "@tanstack/react-table";
 
 import {
-    RankingInfo,
-    rankItem,
-    compareItems,
-  } from '@tanstack/match-sorter-utils';
+  RankingInfo,
+  rankItem,
+  compareItems,
+} from "@tanstack/match-sorter-utils";
 
 import dayjs from "dayjs";
 
-declare module '@tanstack/table-core' {
-    interface FilterFns {
-      fuzzy: FilterFn<unknown>
-    }
-    interface FilterMeta {
-      itemRank: RankingInfo
-    }
+declare module "@tanstack/table-core" {
+  interface FilterFns {
+    fuzzy: FilterFn<unknown>;
   }
-  
-  const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
-    // Rank the item
-    const itemRank = rankItem(row.getValue(columnId), value)
-  
-    // Store the itemRank info
-    addMeta({
-      itemRank,
-    })
-  
-    // Return if the item should be filtered in/out
-    return itemRank.passed
+  interface FilterMeta {
+    itemRank: RankingInfo;
   }
+}
+
+const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
+  // Rank the item
+  const itemRank = rankItem(row.getValue(columnId), value);
+
+  // Store the itemRank info
+  addMeta({
+    itemRank,
+  });
+
+  // Return if the item should be filtered in/out
+  return itemRank.passed;
+};
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -174,6 +174,8 @@ const columnsAttendees = [
 
 const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
   console.log(props.allAttendees, props.allPrograms);
+
+  const [globalFilter, setGlobalFilter] = React.useState("");
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -183,13 +185,29 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
   const tablePrograms = useReactTable({
     data: props.allPrograms,
     columns: columnsPrograms,
+    filterFns: {
+      fuzzy: fuzzyFilter,
+    },
+    state: {
+      globalFilter,
+    },
     getCoreRowModel: getCoreRowModel(),
+    onGlobalFilterChange: setGlobalFilter,
+    globalFilterFn: fuzzyFilter,
   });
 
   const tableAttendees = useReactTable({
     data: props.allAttendees,
     columns: columnsAttendees,
+    filterFns: {
+      fuzzy: fuzzyFilter,
+    },
+    state: {
+      globalFilter,
+    },
     getCoreRowModel: getCoreRowModel(),
+    onGlobalFilterChange: setGlobalFilter,
+    globalFilterFn: fuzzyFilter,
   });
 
   return (
