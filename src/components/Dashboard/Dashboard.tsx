@@ -12,6 +12,7 @@ import {
   Tabs,
   Box,
   Button,
+  TextField,
 } from "@mui/material";
 import {
   createColumnHelper,
@@ -93,7 +94,7 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <>{children}</>
         </Box>
       )}
     </div>
@@ -243,6 +244,15 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
         </Button>
       </div>
       <TabPanel value={value} index={0}>
+        <div>
+          <TextField
+            id="outlined-programs-search"
+            label="Search Programs"
+            variant="outlined"
+            value={globalFilter ?? ''}
+            onChange={value => setGlobalFilter(String(value))}
+          />
+        </div>
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
@@ -279,6 +289,15 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
         </TableContainer>
       </TabPanel>
       <TabPanel value={value} index={1}>
+        <div>
+          <TextField
+            id="outlined-attendees-search"
+            label="Search Attendees"
+            variant="outlined"
+            value={globalFilter ?? ''}
+            onChange={value => setGlobalFilter(String(value))}
+          />
+        </div>
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
