@@ -19,7 +19,6 @@ import {
   flexRender,
   getCoreRowModel,
   useReactTable,
-  FilterFns,
   FilterFn,
   getFilteredRowModel,
 } from "@tanstack/react-table";
@@ -27,7 +26,6 @@ import {
 import {
   RankingInfo,
   rankItem,
-  compareItems,
 } from "@tanstack/match-sorter-utils";
 
 import dayjs from "dayjs";
@@ -152,7 +150,7 @@ const columnsPrograms = [
   }),
   columnHelper.accessor("programResidents", {
     id: "programResidents",
-    cell: (info) => info.getValue().join(", "),
+    cell: (info) => info.getValue(),
     header: () => (
       <Typography style={{ fontWeight: "bold" }}>Attendees</Typography>
     ),
@@ -167,7 +165,7 @@ const columnsAttendees = [
   }),
   columnHelperAttendees.accessor("programsAttended", {
     id: "programsAttended",
-    cell: (info) => info.getValue().join(", "),
+    cell: (info) => info.getValue(),
     header: () => (
       <Typography style={{ fontWeight: "bold" }}>Programs Attended</Typography>
     ),
@@ -250,7 +248,7 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
           <DebouncedInput
             value={globalFilterPrograms ?? ""}
             onChange={(value) => setGlobalFilterPrograms(String(value))}
-            label="Search all programs"
+            label="Search all columns"
             textfieldId="search-all-programs"
           />
         </div>
@@ -294,7 +292,7 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
           <DebouncedInput
             value={globalFilterAttendees ?? ""}
             onChange={(value) => setGlobalFilterAttendees(String(value))}
-            label="Search all attendees"
+            label="Search all columns"
             textfieldId="search-attendees"
           />
         </div>

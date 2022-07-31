@@ -55,13 +55,13 @@ const DashboardContainer = () => {
             );
 
             if (_program && _program.status === "Active") {
-              presentResident.programsAttended.push(program.name);
+              presentResident.programsAttended = presentResident.programsAttended + ", " + program.name;
             }
           } else {
             resAttendees.push({
               ...residentData,
               fullName: residentData.firstName + " " + residentData.lastName,
-              programsAttended: [program.name],
+              programsAttended: program.name,
             });
           }
 
@@ -70,7 +70,7 @@ const DashboardContainer = () => {
 
         resPrograms.push({
           ...program,
-          programResidents,
+          programResidents: programResidents.join(', '),
         });
       });
 
