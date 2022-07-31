@@ -7,34 +7,34 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 interface DashboardProps {
-  programs: UseQueryResult<any, unknown>;
-  residents: UseQueryResult<any, unknown>;
+  allPrograms: any[];
 }
 
 interface Programs {
+  name: string;
   id: string;
-  programs: string[];
-  attendees: string[];
+  programResidents: string[];
 }
 
 const columnHelper = createColumnHelper<Programs>();
 
 const columns = [
-  columnHelper.accessor("programs", {
+  columnHelper.accessor("name", {
+    id: "name",
     cell: (info) => info.getValue(),
     header: () => <span>Programs</span>,
   }),
-  columnHelper.accessor("attendees", {
-    id: "attendees",
-    cell: (info) => <i>{info.getValue()}</i>,
-    header: () => <span>Last Name</span>,
+  columnHelper.accessor("programResidents", {
+    id: "programResidents",
+    cell: (info) => info.getValue().join(", "),
+    header: () => <span>Attendees</span>,
   }),
 ];
 
 const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
   console.log(props);
 
-  const [data, setData] = React.useState([...props.programs?.data?.data]);
+  const [data, setData] = React.useState([...props.allPrograms]);
 
   const table = useReactTable({
     data,
