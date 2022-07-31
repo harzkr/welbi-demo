@@ -123,13 +123,9 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
   return (
     <div>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-        >
-          <Tab label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
+        <Tabs value={value} onChange={handleChange} aria-label="tabs">
+          <Tab label="Programs" {...a11yProps(0)} />
+          <Tab label="Residents" {...a11yProps(1)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
