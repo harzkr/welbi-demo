@@ -21,6 +21,7 @@ import {
   useReactTable,
   FilterFns,
   FilterFn,
+  getFilteredRowModel,
 } from "@tanstack/react-table";
 
 import {
@@ -176,8 +177,11 @@ const columnsAttendees = [
 const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
   console.log(props.allAttendees, props.allPrograms);
 
-  const [globalFilter, setGlobalFilter] = React.useState("");
+  const [globalFilterPrograms, setGlobalFilterPrograms] = React.useState("");
+  const [globalFilterAttendees, setGlobalFilterAttendees] = React.useState("");
   const [value, setValue] = React.useState(0);
+
+  console.log(globalFilterPrograms, globalFilterAttendees);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -190,10 +194,11 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
       fuzzy: fuzzyFilter,
     },
     state: {
-      globalFilter,
+      globalFilter: globalFilterPrograms,
     },
     getCoreRowModel: getCoreRowModel(),
-    onGlobalFilterChange: setGlobalFilter,
+    getFilteredRowModel: getFilteredRowModel(),
+    onGlobalFilterChange: setGlobalFilterPrograms,
     globalFilterFn: fuzzyFilter,
   });
 
@@ -204,10 +209,11 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
       fuzzy: fuzzyFilter,
     },
     state: {
-      globalFilter,
+      globalFilter: globalFilterAttendees,
     },
     getCoreRowModel: getCoreRowModel(),
-    onGlobalFilterChange: setGlobalFilter,
+    getFilteredRowModel: getFilteredRowModel(),
+    onGlobalFilterChange: setGlobalFilterAttendees,
     globalFilterFn: fuzzyFilter,
   });
 
@@ -245,12 +251,11 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
       </div>
       <TabPanel value={value} index={0}>
         <div>
-          <TextField
-            id="outlined-programs-search"
-            label="Search Programs"
-            variant="outlined"
-            value={globalFilter ?? ''}
-            onChange={value => setGlobalFilter(String(value))}
+          <DebouncedInput
+            value={globalFilterPrograms ?? ""}
+            onChange={(value) => setGlobalFilterPrograms(String(value))}
+            className="p-2 font-lg shadow border border-block"
+            placeholder="Search all columns..."
           />
         </div>
         <TableContainer component={Paper}>
@@ -294,8 +299,8 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
             id="outlined-attendees-search"
             label="Search Attendees"
             variant="outlined"
-            value={globalFilter ?? ''}
-            onChange={value => setGlobalFilter(String(value))}
+            value={globalFilterAttendees ?? ""}
+            onChange={(value) => setGlobalFilterAttendees(String(value))}
           />
         </div>
         <TableContainer component={Paper}>
@@ -336,5 +341,38 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
     </div>
   );
 };
+
+function DebouncedInput({
+  value: initialValue,
+  onChange,
+  debounce = 500,
+  ...props
+}: {
+  value: string | number;
+  onChange: (value: string | number) => void;
+  debounce?: number;
+} & Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange">) {
+  const [value, setValue] = React.useState(initialValue);
+
+  React.useEffect(() => {
+    setValue(initialValue);
+  }, [initialValue]);
+
+  React.useEffect(() => {
+    const timeout = setTimeout(() => {
+      onChange(value);
+    }, debounce);
+
+    return () => clearTimeout(timeout);
+  }, [value]);
+
+  return (
+    <input
+      {...props}
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+    />
+  );
+}
 
 export default Dashboard;
