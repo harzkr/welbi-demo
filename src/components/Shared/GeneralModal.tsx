@@ -278,7 +278,9 @@ const GeneralModal = ({
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Add {modalType}</DialogTitle>
+      <DialogTitle>
+        Add {modalType === "Program" ? "New Program" : "New Resident"}
+      </DialogTitle>
       <DialogContent>
         {modalType === "Program" ? (
           <>
