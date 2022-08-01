@@ -47,15 +47,19 @@ const DashboardContainer = () => {
 
   const attendProgram = async (data: any) => {
     try {
-      const response = await ApiResponse("post", `/programs/${data.programId}/attend`, {
-        residentId: data.residentId,
-        status:"Active"
-      });
+      const response = await ApiResponse(
+        "post",
+        `/programs/${data.programId}/attend`,
+        {
+          residentId: data.residentId,
+          status: "Active",
+        }
+      );
       return response;
     } catch (err: any) {
       console.log(err.data.message);
     }
-  }
+  };
 
   const programs = useQuery(["programs"], getPrograms);
   const residents = useQuery(["residents"], getResidents);
@@ -83,8 +87,11 @@ const DashboardContainer = () => {
       onSuccess: () => {
         programs.refetch();
         residents.refetch();
-        setRefetching(true);
-      }
+
+        setTimeout(() => {
+          setRefetching(true);
+        }, 2000);
+      },
     }
   );
 
@@ -93,7 +100,8 @@ const DashboardContainer = () => {
       programs.data &&
       residents.data &&
       (allPrograms.length !== programs.data.data.length ||
-        allAttendees.length !== residents.data.data.length)
+        allAttendees.length !== residents.data.data.length ||
+        refetching)
     ) {
       setRefetching(false);
       const resPrograms: any = [];
