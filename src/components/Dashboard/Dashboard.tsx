@@ -90,6 +90,9 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
   const [value, setValue] = React.useState(0);
 
   const [programForm, setProgramForm] = React.useState(false);
+  const [attendeeForm, setAttendeeForm] = React.useState(false);
+
+  const [formType, setFormType] = React.useState("");
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -127,11 +130,24 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
 
   const modalClose = () => {
     setProgramForm(false);
-  }
+    setAttendeeForm(false);
+  };
+
+  React.useEffect(() => {
+    if(programForm){
+      setFormType("Program");
+    } else if(attendeeForm){
+      setFormType("Attendee");
+    }
+  }, [programForm, attendeeForm]);
 
   return (
     <div>
-      <GeneralModal openModal={programForm} modalClose={modalClose} modalType={'Program'} />
+      <GeneralModal
+        openModal={programForm || attendeeForm}
+        modalClose={modalClose}
+        modalType={formType}
+      />
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           indicatorColor="secondary"
@@ -153,7 +169,12 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
         >
           <Typography style={{ fontSize: 12 }}>Add Program</Typography>
         </Button>
-        <Button style={{ height: 40 }} variant="outlined" color="secondary">
+        <Button
+          onClick={() => setAttendeeForm(true)}
+          style={{ height: 40 }}
+          variant="outlined"
+          color="secondary"
+        >
           <Typography style={{ fontSize: 12 }}>Add Resident</Typography>
         </Button>
       </div>
