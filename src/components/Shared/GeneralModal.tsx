@@ -77,7 +77,7 @@ const GeneralModal = ({
   openModal,
   modalClose,
   modalType,
-  handleSubmission
+  handleSubmission,
 }: {
   openModal: boolean;
   modalClose: () => void;
@@ -175,40 +175,40 @@ const GeneralModal = ({
   };
 
   const handleSubmit = () => {
-    if(modalType === 'Program'){
-        const reqObj = {
-            name: programValues.name,
-            location: programValues.location,
-            dimension: programValues.dimension,
-            isRepeated: programValues.isRepeated,
-            allDay: programValues.isAllDay,
-            start: startTime,
-            end: endTime,
-            hobbies: hobbies,
-            tags: tags,
-            facilitators: facilitators,
-            levelOfCare: levelOfCares,
-        }
+    if (modalType === "Program") {
+      const reqObj = {
+        name: programValues.name,
+        location: programValues.location,
+        dimension: programValues.dimension,
+        isRepeated: programValues.isRepeated,
+        allDay: programValues.isAllDay,
+        start: startTime,
+        end: endTime,
+        hobbies: hobbies,
+        tags: tags,
+        facilitators: facilitators,
+        levelOfCare: levelOfCares,
+      };
 
-        handleSubmission(reqObj);
+      handleSubmission(reqObj);
     } else {
-        const reqObj = {
-            firstName: attendeeValues.firstName,
-            lastName: attendeeValues.lastName,
-            preferredName: attendeeValues.preferredName,
-            name: attendeeValues.firstName + ' ' + attendeeValues.lastName,
-            room: attendeeValues.roomNumber,
-            levelOfCare: selectedLevelOfCare,
-            birthDate: dob,
-            moveInDate: moveIn,
-            ambulation: ambulation,
-        }
+      const reqObj = {
+        firstName: attendeeValues.firstName,
+        lastName: attendeeValues.lastName,
+        preferredName: attendeeValues.preferredName,
+        name: attendeeValues.firstName + " " + attendeeValues.lastName,
+        room: attendeeValues.roomNumber,
+        levelOfCare: selectedLevelOfCare,
+        birthDate: dob,
+        moveInDate: moveIn,
+        ambulation: ambulation,
+      };
 
-        handleSubmission(reqObj);
+      handleSubmission(reqObj);
     }
 
     modalClose();
-  }
+  };
 
   React.useEffect(() => {
     setOpen(openModal);
@@ -564,7 +564,7 @@ const GeneralModal = ({
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   value={ambulation}
-                  label="Abulation"
+                  label="Ambulation"
                   onChange={handleChangeAmbulation}
                 >
                   {ambulations.map((name: string) => (

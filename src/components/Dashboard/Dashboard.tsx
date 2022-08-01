@@ -18,12 +18,10 @@ import {
   getCoreRowModel,
   useReactTable,
   FilterFn,
-  getFilteredRowModel
+  getFilteredRowModel,
 } from "@tanstack/react-table";
 
-import {
-  UseMutationResult
-} from "@tanstack/react-query";
+import { UseMutationResult } from "@tanstack/react-query";
 
 import { RankingInfo, rankItem } from "@tanstack/match-sorter-utils";
 import { DebouncedInput } from "../Shared/DebounceInput";
@@ -140,17 +138,17 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
   };
 
   const handleSubmission = (data: any) => {
-    if(programForm){
+    if (programForm) {
       props.addProgram.mutate(data);
     } else {
       props.addAttendee.mutate(data);
     }
-  }
+  };
 
   React.useEffect(() => {
-    if(programForm){
+    if (programForm) {
       setFormType("Program");
-    } else if(attendeeForm){
+    } else if (attendeeForm) {
       setFormType("Attendee");
     }
   }, [programForm, attendeeForm]);

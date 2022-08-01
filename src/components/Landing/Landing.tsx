@@ -5,7 +5,9 @@ interface LandingProps {
   handleSubmit: (values: string) => void;
 }
 
-const Landing : React.FunctionComponent<LandingProps> = (props:LandingProps) => {
+const Landing: React.FunctionComponent<LandingProps> = (
+  props: LandingProps
+) => {
   const [email, setEmail] = React.useState("");
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
