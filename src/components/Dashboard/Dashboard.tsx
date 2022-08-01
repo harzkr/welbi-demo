@@ -112,10 +112,12 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
       id: "actions",
       cell: (props) => (
         <>
-          <Button onClick={() => {
-            setSelectedResident(props.row.original);
-            setBookPrograms(true);
-          }}>
+          <Button
+            onClick={() => {
+              setSelectedResident(props.row.original);
+              setBookPrograms(true);
+            }}
+          >
             Book Program
           </Button>
         </>
@@ -192,10 +194,7 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
         modalType={formType}
         handleSubmission={handleSubmission}
       />
-      <Dialog
-        open={bookPrograms}
-        onClose={()=>setBookPrograms(false)}
-      >
+      <Dialog open={bookPrograms} onClose={() => setBookPrograms(false)}>
         <DialogTitle>Book Program For: {selectedResident?.name}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
@@ -203,9 +202,7 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
           </DialogContentText>
 
           {props.allPrograms.map((program) => (
-            <MenuItem key={program.id}>
-              {program.name}
-            </MenuItem>
+            <MenuItem key={program.id}>{program.name}</MenuItem>
           ))}
         </DialogContent>
         <DialogActions>
