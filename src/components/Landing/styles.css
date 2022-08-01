@@ -1,0 +1,11 @@
+.content__container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.button__container{
+    margin-Top: 1rem !important;
+}

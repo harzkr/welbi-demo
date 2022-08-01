@@ -16,15 +16,7 @@ const Landing: React.FunctionComponent<LandingProps> = (
 
   return (
     <div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "100vh",
-        }}
-      >
+      <div className="content__container" >
         <Typography variant="h6">Enter your email</Typography>
 
         <TextField
@@ -38,13 +30,11 @@ const Landing: React.FunctionComponent<LandingProps> = (
         />
 
         <Button
-          style={{
-            marginTop: "1rem",
-          }}
           variant="contained"
           color="secondary"
           disabled={email_valid_pattern.test(email) ? false : true}
           onClick={() => props.handleSubmit(email)}
+          className="button__container"
         >
           Submit
         </Button>
