@@ -187,7 +187,7 @@ const GeneralModal = ({
             hobbies: hobbies,
             tags: tags,
             facilitators: facilitators,
-            levelOfCares: levelOfCares,
+            levelOfCare: levelOfCares,
         }
 
         handleSubmission(reqObj);
@@ -196,6 +196,7 @@ const GeneralModal = ({
             firstName: attendeeValues.firstName,
             lastName: attendeeValues.lastName,
             preferredName: attendeeValues.preferredName,
+            name: attendeeValues.firstName + ' ' + attendeeValues.lastName,
             room: attendeeValues.roomNumber,
             levelOfCare: selectedLevelOfCare,
             birthDate: dob,
@@ -524,6 +525,7 @@ const GeneralModal = ({
               variant="standard"
               value={attendeeValues.roomNumber}
               onChange={handleChangeAttendee("roomNumber")}
+              type="number"
             />
             <div
               style={{

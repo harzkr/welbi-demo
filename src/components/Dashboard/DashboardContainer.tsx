@@ -1,6 +1,6 @@
 import React from "react";
 import Dashboard from "./Dashboard";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { ApiResponse } from "../../utils/ApiResponse";
 
 const DashboardContainer = () => {
@@ -24,8 +24,32 @@ const DashboardContainer = () => {
       console.log(err.data.message);
     }
   };
+
+  const addNewProgram = async (data: any) => {
+    try {
+      const response = await ApiResponse("post", "/programs", data);
+      return response;
+    } catch (err: any) {
+      console.log(err.data.message);
+    }
+  };
+
+  const addNewAttendee = async (data: any) => {
+    try {
+      const response = await ApiResponse("post", "/residents", data);
+      return response;
+    } catch (err: any) {
+      console.log(err.data.message);
+    }
+  };
+
   const programs = useQuery(["programs"], getPrograms);
   const residents = useQuery(["residents"], getResidents);
+
+  const addProgram = useMutation((programData) => addNewProgram(programData));
+  const addAttendee = useMutation((attendeeData) =>
+    addNewAttendee(attendeeData)
+  );
 
   React.useEffect(() => {
     if (
@@ -79,7 +103,14 @@ const DashboardContainer = () => {
 
   console.log(residents, programs);
 
-  return <Dashboard allPrograms={allPrograms} allAttendees={allAttendees} />;
+  return (
+    <Dashboard
+      allPrograms={allPrograms}
+      allAttendees={allAttendees}
+      addAttendee={addAttendee}
+      addProgram={addProgram}
+    />
+  );
 };
 
 export default DashboardContainer;

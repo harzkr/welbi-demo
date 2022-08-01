@@ -18,8 +18,12 @@ import {
   getCoreRowModel,
   useReactTable,
   FilterFn,
-  getFilteredRowModel,
+  getFilteredRowModel
 } from "@tanstack/react-table";
+
+import {
+  UseMutationResult
+} from "@tanstack/react-query";
 
 import { RankingInfo, rankItem } from "@tanstack/match-sorter-utils";
 import { DebouncedInput } from "../Shared/DebounceInput";
@@ -55,6 +59,8 @@ interface TabPanelProps {
 interface DashboardProps {
   allPrograms: any[];
   allAttendees: any[];
+  addProgram: UseMutationResult<any, unknown, void, unknown>;
+  addAttendee: UseMutationResult<any, unknown, void, unknown>;
 }
 
 function TabPanel(props: TabPanelProps) {
@@ -134,7 +140,11 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
   };
 
   const handleSubmission = (data: any) => {
-    console.log(data, 'received data');
+    if(programForm){
+      props.addProgram.mutate(data);
+    } else {
+      props.addAttendee.mutate(data);
+    }
   }
 
   React.useEffect(() => {
