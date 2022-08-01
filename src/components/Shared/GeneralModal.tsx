@@ -60,9 +60,7 @@ const facilitators = [
   "OTHER",
 ];
 
-const ambulations = [
-    "NOLIMITATIONS","CANE","WALKER","WHEELCHAIR"
-]
+const ambulations = ["NOLIMITATIONS", "CANE", "WALKER", "WHEELCHAIR"];
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -102,6 +100,18 @@ const GeneralModal = ({
   const [moveIn, setMoveIn] = React.useState<Date | null>(
     new Date("2014-08-18T21:11:54")
   );
+
+  const [ambulation, setAmbulation] = React.useState("");
+
+  const handleChangeAmbulation = (event: SelectChangeEvent) => {
+    setAmbulation(event.target.value as string);
+  };
+
+  const [selectedLevelOfCare, setSelectedLevelOfCare] = React.useState("");
+
+  const handleChangeLevelOfCare = (event: SelectChangeEvent) => {
+    setSelectedLevelOfCare(event.target.value as string);
+  };
 
   const handleChangeTime = (newValue: Date | null, type: string) => {
     if (type === "start") {
@@ -376,6 +386,40 @@ const GeneralModal = ({
                 </div>
               </LocalizationProvider>
             </div>
+
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Age</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={ambulation}
+                label="Abulation"
+                onChange={handleChangeAmbulation}
+              >
+                {ambulations.map((name: string) => (
+                  <MenuItem key={name} value={name}>
+                    {name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Age</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={selectedLevelOfCare}
+                label="Level Of Care"
+                onChange={handleChangeLevelOfCare}
+              >
+                {levelOfCare.map((name: string) => (
+                  <MenuItem key={name} value={name}>
+                    {name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </>
         )}
       </DialogContent>
