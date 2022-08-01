@@ -86,6 +86,8 @@ const GeneralModal = ({
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const [disableSubmit, setDisableSubmit] = React.useState(true);
+
   const [levelOfCares, setLevelOfCares] = React.useState<string[]>([]);
   const [hobbies, setHobbies] = React.useState<string[]>([]);
   const [tags, setTags] = React.useState<string[]>([]);
@@ -476,7 +478,9 @@ const GeneralModal = ({
         <Button color="secondary" onClick={handleClose}>
           Cancel
         </Button>
-        <Button onClick={handleClose}>Submit</Button>
+        <Button disabled={disableSubmit} onClick={handleClose}>
+          Submit
+        </Button>
       </DialogActions>
     </Dialog>
   );
