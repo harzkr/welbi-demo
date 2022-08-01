@@ -1,4 +1,4 @@
-import React from "react";
+import React, { startTransition } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -17,6 +17,9 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Autocomplete from "@mui/material/Autocomplete";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 const levelOfCare = ["INDEPENDENT", "ASSISTED", "MEMORY", "LONGTERM"];
 
@@ -83,6 +86,37 @@ const GeneralModal = ({
   const handleClose = () => setOpen(false);
 
   const [levelOfCares, setLevelOfCares] = React.useState<string[]>([]);
+
+  const [startTime, setStartTime] = React.useState<Date | null>(
+    new Date("2014-08-18T21:11:54")
+  );
+  const [endTime, setEndTime] = React.useState<Date | null>(
+    new Date("2014-08-18T21:11:54")
+  );
+  const [dob, setDob] = React.useState<Date | null>(
+    new Date("2014-08-18T21:11:54")
+  );
+  const [moveIn, setMoveIn] = React.useState<Date | null>(
+    new Date("2014-08-18T21:11:54")
+  );
+
+  const handleChangeTime = (newValue: Date | null, type: string) => {
+    if (type === "start") {
+      setStartTime(newValue);
+    }
+
+    if (type === "end") {
+      setEndTime(newValue);
+    }
+
+    if (type === "dob") {
+      setDob(newValue);
+    }
+
+    if (type === "moveIn") {
+      setMoveIn(newValue);
+    }
+  };
 
   const handleChangeSelect = (
     event: SelectChangeEvent<typeof levelOfCares>
@@ -253,6 +287,20 @@ const GeneralModal = ({
               />
             )}
           />
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DateTimePicker
+              label="Date&Time picker"
+              value={startTime}
+              onChange={(value: Date) => handleChangeTime(value, "start")}
+              renderInput={(params) => <TextField {...params} />}
+            />
+            <DateTimePicker
+              label="Date&Time picker"
+              value={endTime}
+              onChange={(value: Date) => handleChangeTime(value, "end")}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
         </>
       </DialogContent>
       <DialogActions>
