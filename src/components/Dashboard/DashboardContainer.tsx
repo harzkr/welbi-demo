@@ -45,6 +45,18 @@ const DashboardContainer = () => {
     }
   };
 
+  const attendProgram = async (data: any) => {
+    try {
+      const response = await ApiResponse("post", `/programs/${data.program.id}/attend`, {
+        residentId: data.residentId,
+        status:"Active"
+      });
+      return response;
+    } catch (err: any) {
+      console.log(err.data.message);
+    }
+  }
+
   const programs = useQuery(["programs"], getPrograms);
   const residents = useQuery(["residents"], getResidents);
 
@@ -54,6 +66,7 @@ const DashboardContainer = () => {
       setRefetching(true);
     },
   });
+
   const addAttendee = useMutation(
     (attendeeData) => addNewAttendee(attendeeData),
     {
@@ -61,6 +74,17 @@ const DashboardContainer = () => {
         residents.refetch();
         setRefetching(true);
       },
+    }
+  );
+
+  const attendProgramMutation = useMutation(
+    (attendData) => attendProgram(attendData),
+    {
+      onSuccess: () => {
+        programs.refetch();
+        residents.refetch();
+        setRefetching(true);
+      }
     }
   );
 
@@ -121,6 +145,7 @@ const DashboardContainer = () => {
       allAttendees={allAttendees}
       addAttendee={addAttendee}
       addProgram={addProgram}
+      attendProgram={attendProgramMutation}
     />
   );
 };

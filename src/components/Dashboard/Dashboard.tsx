@@ -59,6 +59,7 @@ interface DashboardProps {
   allAttendees: any[];
   addProgram: UseMutationResult<any, unknown, void, unknown>;
   addAttendee: UseMutationResult<any, unknown, void, unknown>;
+  attendProgram: UseMutationResult<any, unknown, void, unknown>;
 }
 
 function TabPanel(props: TabPanelProps) {
