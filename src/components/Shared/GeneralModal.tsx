@@ -87,6 +87,30 @@ const GeneralModal = ({
   const handleClose = () => setOpen(false);
 
   const [levelOfCares, setLevelOfCares] = React.useState<string[]>([]);
+  const [hobbies, setHobbies] = React.useState<string[]>([]);
+  const [tags, setTags] = React.useState<string[]>([]);
+  const [facilitators, setFacilitators] = React.useState<string[]>([]);
+
+
+  const [programValues, setProgramValues] = React.useState({
+    name: "",
+    location: "",
+    dimension: "",
+    isRepeated: true,
+    isAllDay: false
+  });
+
+  const [attendeeValues, setAttendeeValues] = React.useState({
+    firstName: "",
+    lastName: "",
+    preferredName: "",
+    roomNo: "",
+    levelOfCare: ""
+  });
+
+  const handleChangeProgram = prop => event => {
+    setProgramValues({ ...programValues, [prop]: event.target.value });
+  };
 
   const [startTime, setStartTime] = React.useState<Date | null>(
     new Date("2014-08-18T21:11:54")
