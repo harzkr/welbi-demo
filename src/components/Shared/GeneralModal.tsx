@@ -22,7 +22,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 const levelOfCare = ["INDEPENDENT", "ASSISTED", "MEMORY", "LONGTERM"];
 
-const hobbies = [
+const hobbiesList = [
   "READING",
   "WRITING",
   "SPORTING",
@@ -49,7 +49,7 @@ const allTags = [
   "colors",
 ];
 
-const facilitators = [
+const facilitatorsList = [
   "JANE",
   "JOE",
   "JIM",
@@ -209,7 +209,8 @@ const GeneralModal = ({
         selectedLevelOfCare &&
         dob &&
         moveIn &&
-        ambulation
+        ambulation &&
+        dob < moveIn
       ) {
         setDisableSubmit(false);
       } else {
@@ -236,6 +237,8 @@ const GeneralModal = ({
     tags,
     facilitators,
   ]);
+
+  console.log(programValues, attendeeValues);
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Add {modalType}</DialogTitle>
@@ -336,10 +339,13 @@ const GeneralModal = ({
             <Autocomplete
               multiple
               id="hobbies-autocomplete"
-              options={hobbies.map((option: string) => option)}
+              options={hobbiesList.map((option: string) => option)}
               freeSolo
               style={{
                 marginTop: 28,
+              }}
+              onChange={(event: any, newValue: any | null) => {
+                setHobbies(newValue);
               }}
               renderTags={(value: readonly string[], getTagProps) =>
                 value.map((option: string, index: number) => (
@@ -364,6 +370,9 @@ const GeneralModal = ({
               id="tags-autocomplete"
               options={allTags.map((option: string) => option)}
               freeSolo
+              onChange={(event: any, newValue: any | null) => {
+                setTags(newValue);
+              }}
               style={{
                 marginTop: 28,
               }}
@@ -388,8 +397,11 @@ const GeneralModal = ({
             <Autocomplete
               multiple
               id="facilitator-autocomplete"
-              options={facilitators.map((option: string) => option)}
+              options={facilitatorsList.map((option: string) => option)}
               freeSolo
+              onChange={(event: any, newValue: any | null) => {
+                setFacilitators(newValue);
+              }}
               style={{
                 marginTop: 28,
               }}
