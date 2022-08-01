@@ -10,9 +10,11 @@ import DialogTitle from "@mui/material/DialogTitle";
 const GeneralModal = ({
   openModal,
   modalClose,
+  modalType
 }: {
   openModal: boolean;
   modalClose: () => void;
+  modalType: string;
 }) => {
   const [open, setOpen] = React.useState(openModal || false);
   const handleOpen = () => setOpen(true);
@@ -30,25 +32,36 @@ const GeneralModal = ({
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Subscribe</DialogTitle>
+      <DialogTitle>Add {modalType}</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          To subscribe to this website, please enter your email address here. We
-          will send updates occasionally.
-        </DialogContentText>
+        <>
         <TextField
-          autoFocus
           margin="dense"
           id="name"
-          label="Email Address"
-          type="email"
+          label="Name of Program"
           fullWidth
           variant="standard"
         />
+        <TextField
+          margin="dense"
+          id="location"
+          label="Location"
+          fullWidth
+          variant="standard"
+        />
+         <TextField
+          margin="dense"
+          id="dimension"
+          label="Dimension"
+          fullWidth
+          variant="standard"
+          placeholder="e.g. Intellectual, Physical"
+        />
+        </>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleClose}>Subscribe</Button>
+        <Button onClick={handleClose}>Submit</Button>
       </DialogActions>
     </Dialog>
   );

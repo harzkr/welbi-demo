@@ -131,7 +131,7 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
 
   return (
     <div>
-      <GeneralModal openModal={programForm} modalClose={modalClose} />
+      <GeneralModal openModal={programForm} modalClose={modalClose} modalType={'Program'} />
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           indicatorColor="secondary"
