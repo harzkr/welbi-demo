@@ -232,16 +232,16 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
       <div className="buttons__group">
         <Button
           onClick={() => setProgramForm(true)}
-          style={{ height: 40 }}
           variant="outlined"
+          className="button__height"
         >
           <Typography style={{ fontSize: 12 }}>Add Program</Typography>
         </Button>
         <Button
           onClick={() => setAttendeeForm(true)}
-          style={{ height: 40 }}
           variant="outlined"
           color="secondary"
+          className="button__height"
         >
           <Typography style={{ fontSize: 12 }}>Add Resident</Typography>
         </Button>
