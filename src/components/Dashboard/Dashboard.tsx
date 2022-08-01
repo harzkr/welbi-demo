@@ -202,15 +202,19 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
           </DialogContentText>
 
           {props.allPrograms.map((program) => (
-            <MenuItem key={program.id} onClick={()=>{
-              props.attendProgram.mutate({
-                programId: program.id,
-                residentId: selectedResident.id,
-              });
-              setBookPrograms(false);
-            }}>
+            <MenuItem
+              key={program.id}
+              onClick={() => {
+                props.attendProgram.mutate({
+                  programId: program.id,
+                  residentId: selectedResident.id,
+                });
+                setBookPrograms(false);
+              }}
+            >
               {program.name}
-            </MenuItem>))}
+            </MenuItem>
+          ))}
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setBookPrograms(false)}>Cancel</Button>
@@ -235,7 +239,7 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
           variant="outlined"
           className="button__height"
         >
-          <Typography style={{ fontSize: 12 }}>Add Program</Typography>
+          <Typography className="button__content">Add Program</Typography>
         </Button>
         <Button
           onClick={() => setAttendeeForm(true)}
@@ -243,15 +247,11 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
           color="secondary"
           className="button__height"
         >
-          <Typography style={{ fontSize: 12 }}>Add Resident</Typography>
+          <Typography className="button__content">Add Resident</Typography>
         </Button>
       </div>
       <TabPanel value={value} index={0}>
-        <div
-          style={{
-            marginBottom: 24,
-          }}
-        >
+        <div className="input__container">
           <DebouncedInput
             value={globalFilterPrograms ?? ""}
             onChange={(value) => setGlobalFilterPrograms(String(value))}
@@ -295,11 +295,7 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
         </TableContainer>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <div
-          style={{
-            marginBottom: 24,
-          }}
-        >
+        <div className="input__container">
           <DebouncedInput
             value={globalFilterAttendees ?? ""}
             onChange={(value) => setGlobalFilterAttendees(String(value))}

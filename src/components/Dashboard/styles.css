@@ -10,3 +10,11 @@
 .button__height{ 
     height: 40px;
 }
+
+.input__container{
+    margin-bottom: 24px;
+}
+
+.button__content{
+    font-size: 12px;
+}
