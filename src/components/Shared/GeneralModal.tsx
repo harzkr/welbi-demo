@@ -77,10 +77,12 @@ const GeneralModal = ({
   openModal,
   modalClose,
   modalType,
+  handleSubmission
 }: {
   openModal: boolean;
   modalClose: () => void;
   modalType: string;
+  handleSubmission: (data: any) => void;
 }) => {
   const [open, setOpen] = React.useState(openModal || false);
   const handleOpen = () => setOpen(true);
@@ -171,6 +173,41 @@ const GeneralModal = ({
       typeof value === "string" ? value.split(",") : value
     );
   };
+
+  const handleSubmit = () => {
+    if(modalType === 'Program'){
+        const reqObj = {
+            name: programValues.name,
+            location: programValues.location,
+            dimension: programValues.dimension,
+            isRepeated: programValues.isRepeated,
+            allDay: programValues.isAllDay,
+            start: startTime,
+            end: endTime,
+            hobbies: hobbies,
+            tags: tags,
+            facilitators: facilitators,
+            levelOfCares: levelOfCares,
+        }
+
+        handleSubmission(reqObj);
+    } else {
+        const reqObj = {
+            firstName: attendeeValues.firstName,
+            lastName: attendeeValues.lastName,
+            preferredName: attendeeValues.preferredName,
+            room: attendeeValues.roomNumber,
+            levelOfCare: selectedLevelOfCare,
+            birthDate: dob,
+            moveInDate: moveIn,
+            ambulation: ambulation,
+        }
+
+        handleSubmission(reqObj);
+    }
+
+    modalClose();
+  }
 
   React.useEffect(() => {
     setOpen(openModal);
@@ -565,7 +602,7 @@ const GeneralModal = ({
         <Button color="secondary" onClick={handleClose}>
           Cancel
         </Button>
-        <Button disabled={disableSubmit} onClick={handleClose}>
+        <Button disabled={disableSubmit} onClick={handleSubmit}>
           Submit
         </Button>
       </DialogActions>

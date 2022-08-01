@@ -133,6 +133,10 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
     setAttendeeForm(false);
   };
 
+  const handleSubmission = (data: any) => {
+    console.log(data, 'received data');
+  }
+
   React.useEffect(() => {
     if(programForm){
       setFormType("Program");
@@ -147,6 +151,7 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
         openModal={programForm || attendeeForm}
         modalClose={modalClose}
         modalType={formType}
+        handleSubmission={handleSubmission}
       />
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
