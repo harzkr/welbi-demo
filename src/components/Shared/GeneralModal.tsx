@@ -187,7 +187,14 @@ const GeneralModal = ({
       if (
         programValues.name &&
         programValues.location &&
-        programValues.dimension
+        programValues.dimension &&
+        levelOfCares.length > 0 &&
+        hobbies.length > 0 &&
+        tags.length > 0 &&
+        facilitators.length > 0 &&
+        startTime &&
+        endTime &&
+        startTime < endTime
       ) {
         setDisableSubmit(false);
       } else {
@@ -198,7 +205,11 @@ const GeneralModal = ({
         attendeeValues.firstName &&
         attendeeValues.lastName &&
         attendeeValues.preferredName &&
-        attendeeValues.roomNumber
+        attendeeValues.roomNumber &&
+        selectedLevelOfCare &&
+        dob &&
+        moveIn &&
+        ambulation
       ) {
         setDisableSubmit(false);
       } else {
@@ -213,7 +224,17 @@ const GeneralModal = ({
     attendeeValues.lastName,
     attendeeValues.preferredName,
     attendeeValues.roomNumber,
-    modalType
+    modalType,
+    levelOfCares,
+    startTime,
+    endTime,
+    dob,
+    moveIn,
+    ambulation,
+    selectedLevelOfCare,
+    hobbies,
+    tags,
+    facilitators,
   ]);
   return (
     <Dialog open={open} onClose={handleClose}>
