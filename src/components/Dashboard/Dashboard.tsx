@@ -23,6 +23,7 @@ import {
 
 import { RankingInfo, rankItem } from "@tanstack/match-sorter-utils";
 import { DebouncedInput } from "../Shared/DebounceInput";
+import GeneralModal from "../Shared/GeneralModal";
 import { columnsPrograms, columnsAttendees } from "./columns";
 import "./styles.css";
 
@@ -88,6 +89,8 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
   const [globalFilterAttendees, setGlobalFilterAttendees] = React.useState("");
   const [value, setValue] = React.useState(0);
 
+  const [programForm, setProgramForm] = React.useState(false);
+
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
@@ -122,8 +125,13 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
     globalFilterFn: fuzzyFilter,
   });
 
+  const modalClose = () => {
+    setProgramForm(false);
+  }
+
   return (
     <div>
+      <GeneralModal openModal={programForm} modalClose={modalClose} />
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           indicatorColor="secondary"
@@ -138,7 +146,11 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
       </Box>
 
       <div className="buttons__group">
-        <Button style={{ height: 40 }} variant="outlined">
+        <Button
+          onClick={() => setProgramForm(true)}
+          style={{ height: 40 }}
+          variant="outlined"
+        >
           <Typography style={{ fontSize: 12 }}>Add Program</Typography>
         </Button>
         <Button style={{ height: 40 }} variant="outlined" color="secondary">
