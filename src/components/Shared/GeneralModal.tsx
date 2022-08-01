@@ -387,39 +387,47 @@ const GeneralModal = ({
               </LocalizationProvider>
             </div>
 
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Age</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={ambulation}
-                label="Abulation"
-                onChange={handleChangeAmbulation}
-              >
-                {ambulations.map((name: string) => (
-                  <MenuItem key={name} value={name}>
-                    {name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <div style={{ marginTop: 24 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">
+                  Ambulation
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={ambulation}
+                  label="Abulation"
+                  onChange={handleChangeAmbulation}
+                >
+                  {ambulations.map((name: string) => (
+                    <MenuItem key={name} value={name}>
+                      {name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
 
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Age</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={selectedLevelOfCare}
-                label="Level Of Care"
-                onChange={handleChangeLevelOfCare}
-              >
-                {levelOfCare.map((name: string) => (
-                  <MenuItem key={name} value={name}>
-                    {name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <div style={{ marginTop: 24 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">
+                  Level Of Care
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={selectedLevelOfCare}
+                  label="Level Of Care"
+                  onChange={handleChangeLevelOfCare}
+                >
+                  {levelOfCare.map((name: string) => (
+                    <MenuItem key={name} value={name}>
+                      {name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
           </>
         )}
       </DialogContent>
