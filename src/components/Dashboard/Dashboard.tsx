@@ -69,7 +69,7 @@ interface DashboardProps {
   allAttendees: any[];
   addProgram: UseMutationResult<any, unknown, void, unknown>;
   addAttendee: UseMutationResult<any, unknown, void, unknown>;
-  attendProgram: UseMutationResult<any, unknown, void, unknown>;
+  attendProgram: UseMutationResult<any>;
 }
 
 function TabPanel(props: TabPanelProps) {
@@ -202,8 +202,15 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
           </DialogContentText>
 
           {props.allPrograms.map((program) => (
-            <MenuItem key={program.id}>{program.name}</MenuItem>
-          ))}
+            <MenuItem key={program.id} onClick={()=>{
+              props.attendProgram.mutate({
+                programId: program.id,
+                residentId: selectedResident.id,
+              });
+              setBookPrograms(false);
+            }}>
+              {program.name}
+            </MenuItem>))}
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setBookPrograms(false)}>Cancel</Button>

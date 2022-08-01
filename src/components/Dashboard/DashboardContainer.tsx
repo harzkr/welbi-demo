@@ -47,7 +47,7 @@ const DashboardContainer = () => {
 
   const attendProgram = async (data: any) => {
     try {
-      const response = await ApiResponse("post", `/programs/${data.program.id}/attend`, {
+      const response = await ApiResponse("post", `/programs/${data.programId}/attend`, {
         residentId: data.residentId,
         status:"Active"
       });
