@@ -85,7 +85,7 @@ const GeneralModal = ({
   handleSubmission: (data: any) => void;
 }) => {
   const [open, setOpen] = React.useState(openModal || false);
-  const handleOpen = () => setOpen(true);
+  //const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const [disableSubmit, setDisableSubmit] = React.useState(true);
@@ -218,7 +218,7 @@ const GeneralModal = ({
     if (!open) {
       modalClose();
     }
-  }, [open]);
+  }, [open, modalClose]);
 
   React.useEffect(() => {
     if (modalType === "Program") {
