@@ -12,6 +12,12 @@ import {
   Tabs,
   Box,
   Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  MenuItem,
 } from "@mui/material";
 import {
   flexRender,
@@ -26,7 +32,11 @@ import { UseMutationResult } from "@tanstack/react-query";
 import { RankingInfo, rankItem } from "@tanstack/match-sorter-utils";
 import { DebouncedInput } from "../Shared/DebounceInput";
 import GeneralModal from "../Shared/GeneralModal";
-import { columnsPrograms, columnsAttendees, columnHelperAttendees } from "./columns";
+import {
+  columnsPrograms,
+  columnsAttendees,
+  columnHelperAttendees,
+} from "./columns";
 import "./styles.css";
 
 declare module "@tanstack/table-core" {
@@ -94,17 +104,28 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
   const [globalFilterAttendees, setGlobalFilterAttendees] = React.useState("");
   const [value, setValue] = React.useState(0);
 
-  const [modifiedColumns, setModifiedColumns] = React.useState([...columnsAttendees, columnHelperAttendees.display({
-    id: 'actions',
-    cell: (props) => (
-      <>
-        <Button onClick={() => console.log('will trigger')}>Book Program</Button>
-      </>
-    ),
-  })]);
+  const [selectedResident, setSelectedResident] = React.useState<any>();
+
+  const [modifiedColumns, setModifiedColumns] = React.useState([
+    ...columnsAttendees,
+    columnHelperAttendees.display({
+      id: "actions",
+      cell: (props) => (
+        <>
+          <Button onClick={() => {
+            setSelectedResident(props.row.original);
+            setBookPrograms(true);
+          }}>
+            Book Program
+          </Button>
+        </>
+      ),
+    }),
+  ]);
 
   const [programForm, setProgramForm] = React.useState(false);
   const [attendeeForm, setAttendeeForm] = React.useState(false);
+  const [bookPrograms, setBookPrograms] = React.useState(false);
 
   const [formType, setFormType] = React.useState("");
 
@@ -171,6 +192,26 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
         modalType={formType}
         handleSubmission={handleSubmission}
       />
+      <Dialog
+        open={bookPrograms}
+        onClose={()=>setBookPrograms(false)}
+      >
+        <DialogTitle>Book Program For: {selectedResident?.name}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            Select Any Program from the list
+          </DialogContentText>
+
+          {props.allPrograms.map((program) => (
+            <MenuItem key={program.id}>
+              {program.name}
+            </MenuItem>
+          ))}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setBookPrograms(false)}>Cancel</Button>
+        </DialogActions>
+      </Dialog>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           indicatorColor="secondary"
@@ -202,7 +243,11 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
         </Button>
       </div>
       <TabPanel value={value} index={0}>
-        <div>
+        <div
+          style={{
+            marginBottom: 24,
+          }}
+        >
           <DebouncedInput
             value={globalFilterPrograms ?? ""}
             onChange={(value) => setGlobalFilterPrograms(String(value))}
@@ -246,7 +291,11 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
         </TableContainer>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <div>
+        <div
+          style={{
+            marginBottom: 24,
+          }}
+        >
           <DebouncedInput
             value={globalFilterAttendees ?? ""}
             onChange={(value) => setGlobalFilterAttendees(String(value))}
