@@ -91,25 +91,28 @@ const GeneralModal = ({
   const [tags, setTags] = React.useState<string[]>([]);
   const [facilitators, setFacilitators] = React.useState<string[]>([]);
 
-
   const [programValues, setProgramValues] = React.useState({
     name: "",
     location: "",
     dimension: "",
     isRepeated: true,
-    isAllDay: false
+    isAllDay: false,
   });
 
   const [attendeeValues, setAttendeeValues] = React.useState({
     firstName: "",
     lastName: "",
     preferredName: "",
-    roomNo: "",
-    levelOfCare: ""
+    roomNumber: "",
+    levelOfCare: "",
   });
 
-  const handleChangeProgram = prop => event => {
+  const handleChangeProgram = (prop) => (event) => {
     setProgramValues({ ...programValues, [prop]: event.target.value });
+  };
+
+  const handleChangeAttendee = (prop) => (event) => {
+    setAttendeeValues({ ...attendeeValues, [prop]: event.target.value });
   };
 
   const [startTime, setStartTime] = React.useState<Date | null>(
@@ -189,6 +192,8 @@ const GeneralModal = ({
               label="Name of Program"
               fullWidth
               variant="standard"
+              value={programValues.name}
+              onChange={handleChangeProgram("name")}
             />
             <TextField
               margin="dense"
@@ -196,6 +201,8 @@ const GeneralModal = ({
               label="Location"
               fullWidth
               variant="standard"
+              value={programValues.location}
+              onChange={handleChangeProgram("location")}
             />
             <TextField
               margin="dense"
@@ -204,6 +211,8 @@ const GeneralModal = ({
               fullWidth
               variant="standard"
               placeholder="e.g. Intellectual, Physical"
+              value={programValues.dimension}
+              onChange={handleChangeProgram("dimension")}
             />
             <FormControl sx={{ m: 1, width: 300, marginTop: 4 }}>
               <InputLabel id="demo-multiple-chip-label">
@@ -360,6 +369,8 @@ const GeneralModal = ({
               label="First Name"
               fullWidth
               variant="standard"
+              value={attendeeValues.firstName}
+              onChange={handleChangeAttendee("firstName")}
             />
             <TextField
               margin="dense"
@@ -367,6 +378,8 @@ const GeneralModal = ({
               label="Last Name"
               fullWidth
               variant="standard"
+              value={attendeeValues.lastName}
+              onChange={handleChangeAttendee("lastName")}
             />
             <TextField
               margin="dense"
@@ -374,6 +387,8 @@ const GeneralModal = ({
               label="Preferred Name"
               fullWidth
               variant="standard"
+              value={attendeeValues.preferredName}
+              onChange={handleChangeAttendee("preferredName")}
             />
             <TextField
               margin="dense"
@@ -381,6 +396,8 @@ const GeneralModal = ({
               label="Room Number"
               fullWidth
               variant="standard"
+              value={attendeeValues.roomNumber}
+              onChange={handleChangeAttendee("roomNumber")}
             />
             <div
               style={{
