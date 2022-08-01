@@ -1,4 +1,4 @@
-import React, { startTransition } from "react";
+import React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -432,7 +432,9 @@ const GeneralModal = ({
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
+        <Button color="secondary" onClick={handleClose}>
+          Cancel
+        </Button>
         <Button onClick={handleClose}>Submit</Button>
       </DialogActions>
     </Dialog>
