@@ -276,7 +276,6 @@ const GeneralModal = ({
     facilitators,
   ]);
 
-  console.log(programValues, attendeeValues);
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Add {modalType}</DialogTitle>

@@ -7,6 +7,8 @@ const DashboardContainer = () => {
   const [allPrograms, setAllPrograms] = React.useState([]);
   const [allAttendees, setAllAttendees] = React.useState([]);
 
+  const [refetching, setRefetching] = React.useState(false);
+
   const getPrograms = async () => {
     try {
       const response = await ApiResponse("get", "/programs");
@@ -46,26 +48,31 @@ const DashboardContainer = () => {
   const programs = useQuery(["programs"], getPrograms);
   const residents = useQuery(["residents"], getResidents);
 
-  const addProgram = useMutation((programData) => addNewProgram(programData),{
-    onSuccess: () =>{
+  const addProgram = useMutation((programData) => addNewProgram(programData), {
+    onSuccess: () => {
       programs.refetch();
-    }
+      setRefetching(true);
+    },
   });
-  const addAttendee = useMutation((attendeeData) =>
-    addNewAttendee(attendeeData),{
-      onSuccess: () =>{
+  const addAttendee = useMutation(
+    (attendeeData) => addNewAttendee(attendeeData),
+    {
+      onSuccess: () => {
         residents.refetch();
-      }
+        setRefetching(true);
+      },
     }
   );
 
   React.useEffect(() => {
+    console.log("triggering refetch");
     if (
       programs.data &&
       residents.data &&
-      allPrograms.length !== programs.data.data.length &&
-      allAttendees.length !== residents.data.data.length
+      (allPrograms.length !== programs.data.data.length ||
+        allAttendees.length !== residents.data.data.length)
     ) {
+      setRefetching(false);
       const resPrograms: any = [];
       const resAttendees: any = [];
 
@@ -107,7 +114,7 @@ const DashboardContainer = () => {
       setAllPrograms(resPrograms);
       setAllAttendees(resAttendees);
     }
-  }, [programs, residents]);
+  }, [programs, residents, refetching]);
 
   console.log(residents, programs);
 
