@@ -182,6 +182,39 @@ const GeneralModal = ({
     }
   }, [open]);
 
+  React.useEffect(() => {
+    if (modalType === "Program") {
+      if (
+        programValues.name &&
+        programValues.location &&
+        programValues.dimension
+      ) {
+        setDisableSubmit(false);
+      } else {
+        setDisableSubmit(true);
+      }
+    } else {
+      if (
+        attendeeValues.firstName &&
+        attendeeValues.lastName &&
+        attendeeValues.preferredName &&
+        attendeeValues.roomNumber
+      ) {
+        setDisableSubmit(false);
+      } else {
+        setDisableSubmit(true);
+      }
+    }
+  }, [
+    programValues.name,
+    programValues.dimension,
+    programValues.location,
+    attendeeValues.firstName,
+    attendeeValues.lastName,
+    attendeeValues.preferredName,
+    attendeeValues.roomNumber,
+    modalType
+  ]);
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Add {modalType}</DialogTitle>
