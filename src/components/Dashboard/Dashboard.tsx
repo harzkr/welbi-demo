@@ -21,13 +21,10 @@ import {
   getFilteredRowModel,
 } from "@tanstack/react-table";
 
-import {
-  RankingInfo,
-  rankItem,
-} from "@tanstack/match-sorter-utils";
+import { RankingInfo, rankItem } from "@tanstack/match-sorter-utils";
 import { DebouncedInput } from "../Shared/DebounceInput";
 import { columnsPrograms, columnsAttendees } from "./columns";
-import './styles.css';
+import "./styles.css";
 
 declare module "@tanstack/table-core" {
   interface FilterFns {
@@ -142,10 +139,10 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
 
       <div className="buttons__group">
         <Button style={{ height: 40 }} variant="outlined">
-          <Typography>Add Program</Typography>
+          <Typography style={{ fontSize: 12 }}>Add Program</Typography>
         </Button>
         <Button style={{ height: 40 }} variant="outlined" color="secondary">
-          <Typography>Add Attendee</Typography>
+          <Typography style={{ fontSize: 12 }}>Add Resident</Typography>
         </Button>
       </div>
       <TabPanel value={value} index={0}>

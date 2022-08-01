@@ -77,7 +77,7 @@ const DashboardContainer = () => {
     }
   }, [programs, residents]);
 
-  console.log(residents, programs, allAttendees);
+  console.log(residents, programs);
 
   return <Dashboard allPrograms={allPrograms} allAttendees={allAttendees} />;
 };
