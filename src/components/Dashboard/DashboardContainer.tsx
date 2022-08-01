@@ -46,9 +46,17 @@ const DashboardContainer = () => {
   const programs = useQuery(["programs"], getPrograms);
   const residents = useQuery(["residents"], getResidents);
 
-  const addProgram = useMutation((programData) => addNewProgram(programData));
+  const addProgram = useMutation((programData) => addNewProgram(programData),{
+    onSuccess: () =>{
+      programs.refetch();
+    }
+  });
   const addAttendee = useMutation((attendeeData) =>
-    addNewAttendee(attendeeData)
+    addNewAttendee(attendeeData),{
+      onSuccess: () =>{
+        residents.refetch();
+      }
+    }
   );
 
   React.useEffect(() => {
