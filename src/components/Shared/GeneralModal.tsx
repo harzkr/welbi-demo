@@ -18,7 +18,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Autocomplete from "@mui/material/Autocomplete";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 const levelOfCare = ["INDEPENDENT", "ASSISTED", "MEMORY", "LONGTERM"];
@@ -287,20 +287,22 @@ const GeneralModal = ({
               />
             )}
           />
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DateTimePicker
-              label="Date&Time picker"
-              value={startTime}
-              onChange={(value: Date) => handleChangeTime(value, "start")}
-              renderInput={(params) => <TextField {...params} />}
-            />
-            <DateTimePicker
-              label="Date&Time picker"
-              value={endTime}
-              onChange={(value: Date) => handleChangeTime(value, "end")}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </LocalizationProvider>
+          <div style={{ marginTop: 28 }}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DateTimePicker
+                label="Pick start date and time"
+                value={startTime}
+                onChange={(value: Date) => handleChangeTime(value, "start")}
+                renderInput={(params) => <TextField {...params} />}
+              />
+              <DateTimePicker
+                label="Pick end date and time"
+                value={endTime}
+                onChange={(value: Date) => handleChangeTime(value, "end")}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+          </div>
         </>
       </DialogContent>
       <DialogActions>
