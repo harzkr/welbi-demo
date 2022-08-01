@@ -304,11 +304,32 @@ const GeneralModal = ({
             </FormControl>
             <FormGroup sx={{ marginTop: 4 }}>
               <FormControlLabel
-                control={<Checkbox defaultChecked />}
+                control={
+                  <Checkbox
+                    checked={programValues.isRepeated}
+                    onChange={() => {
+                      setProgramValues({
+                        ...programValues,
+                        isRepeated: !programValues.isRepeated,
+                      });
+                    }}
+                  />
+                }
                 label="is Repeated?"
               />
               <FormControlLabel
-                control={<Checkbox color="secondary" />}
+                control={
+                  <Checkbox
+                    color="secondary"
+                    checked={programValues.isAllDay}
+                    onChange={() => {
+                      setProgramValues({
+                        ...programValues,
+                        isAllDay: !programValues.isAllDay,
+                      });
+                    }}
+                  />
+                }
                 label="All Day Event"
               />
             </FormGroup>
