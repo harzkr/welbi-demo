@@ -107,7 +107,7 @@ const DashboardContainer = () => {
       const resPrograms: any = [];
       const resAttendees: any = [];
 
-      programs.data.data.map((program: any) => {
+      programs.data.data.forEach((program: any) => {
         const programResidents = program.attendance.map((resident: any) => {
           const residentData = residents.data.data.find(
             (o: any) => o.id === resident.residentId
@@ -122,10 +122,10 @@ const DashboardContainer = () => {
         });
       });
 
-      residents.data.data.map((resident: any) => {
+      residents.data.data.forEach((resident: any) => {
         const attendedPrograms: any[] = [];
 
-        resident.attendance.map((program: any) => {
+        resident.attendance.forEach((program: any) => {
           if (program.status === "Active") {
             const programData = programs.data.data.find(
               (o: any) => o.id === program.programId
@@ -145,7 +145,7 @@ const DashboardContainer = () => {
       setAllPrograms(resPrograms);
       setAllAttendees(resAttendees);
     }
-  }, [programs, residents, refetching]);
+  }, [programs, residents, refetching, allAttendees, allPrograms]);
 
   return (
     <Dashboard
