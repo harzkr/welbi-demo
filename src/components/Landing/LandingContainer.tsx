@@ -16,11 +16,11 @@ const LandingContainer = () => {
     }
   };
 
-  const mutation = useMutation(logIn, { retry: 1 });
-
   const handleSubmit = (email: string) => {
     mutation.mutate({ email });
   };
+
+  const mutation = useMutation(logIn, { retry: 1 });
 
   React.useEffect(() => {
     if (mutation.data) {

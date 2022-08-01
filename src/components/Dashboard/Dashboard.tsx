@@ -106,7 +106,7 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
 
   const [selectedResident, setSelectedResident] = React.useState<any>();
 
-  const [modifiedColumns, setModifiedColumns] = React.useState([
+  const [modifiedColumns] = React.useState([
     ...columnsAttendees,
     columnHelperAttendees.display({
       id: "actions",
