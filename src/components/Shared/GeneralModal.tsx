@@ -4,7 +4,6 @@ import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Box from "@mui/material/Box";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -60,6 +59,10 @@ const facilitators = [
   "WELBI",
   "OTHER",
 ];
+
+const ambulations = [
+    "NOLIMITATIONS","CANE","WALKER","WHEELCHAIR"
+]
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -144,172 +147,237 @@ const GeneralModal = ({
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Add {modalType}</DialogTitle>
       <DialogContent>
-        <>
-          <TextField
-            margin="dense"
-            id="name"
-            label="Name of Program"
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            margin="dense"
-            id="location"
-            label="Location"
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            margin="dense"
-            id="dimension"
-            label="Dimension"
-            fullWidth
-            variant="standard"
-            placeholder="e.g. Intellectual, Physical"
-          />
-          <FormControl sx={{ m: 1, width: 300, marginTop: 4 }}>
-            <InputLabel id="demo-multiple-chip-label">
-              Select a Level of Care
-            </InputLabel>
-            <Select
-              labelId="demo-multiple-chip-label"
-              id="demo-multiple-chip"
+        {modalType === "Program" ? (
+          <>
+            <TextField
+              margin="dense"
+              id="name"
+              label="Name of Program"
+              fullWidth
+              variant="standard"
+            />
+            <TextField
+              margin="dense"
+              id="location"
+              label="Location"
+              fullWidth
+              variant="standard"
+            />
+            <TextField
+              margin="dense"
+              id="dimension"
+              label="Dimension"
+              fullWidth
+              variant="standard"
+              placeholder="e.g. Intellectual, Physical"
+            />
+            <FormControl sx={{ m: 1, width: 300, marginTop: 4 }}>
+              <InputLabel id="demo-multiple-chip-label">
+                Select a Level of Care
+              </InputLabel>
+              <Select
+                labelId="demo-multiple-chip-label"
+                id="demo-multiple-chip"
+                multiple
+                value={levelOfCares}
+                onChange={handleChangeSelect}
+                input={
+                  <OutlinedInput
+                    id="select-multiple-chip"
+                    label="Select a Level of Care"
+                  />
+                }
+                renderValue={(selected) => (
+                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                    {selected.map((value) => (
+                      <Chip key={value} label={value} />
+                    ))}
+                  </Box>
+                )}
+                MenuProps={MenuProps}
+              >
+                {levelOfCare.map((name: string) => (
+                  <MenuItem key={name} value={name}>
+                    {name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormGroup sx={{ marginTop: 4 }}>
+              <FormControlLabel
+                control={<Checkbox defaultChecked />}
+                label="is Repeated?"
+              />
+              <FormControlLabel
+                control={<Checkbox color="secondary" />}
+                label="All Day Event"
+              />
+            </FormGroup>
+            <Autocomplete
               multiple
-              value={levelOfCares}
-              onChange={handleChangeSelect}
-              input={
-                <OutlinedInput
-                  id="select-multiple-chip"
-                  label="Select a Level of Care"
-                />
+              id="hobbies-autocomplete"
+              options={hobbies.map((option: string) => option)}
+              freeSolo
+              style={{
+                marginTop: 28,
+              }}
+              renderTags={(value: readonly string[], getTagProps) =>
+                value.map((option: string, index: number) => (
+                  <Chip
+                    variant="outlined"
+                    label={option}
+                    {...getTagProps({ index })}
+                  />
+                ))
               }
-              renderValue={(selected) => (
-                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                  {selected.map((value) => (
-                    <Chip key={value} label={value} />
-                  ))}
-                </Box>
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label="Hobbies"
+                  placeholder="Hobbies"
+                />
               )}
-              MenuProps={MenuProps}
+            />
+            <Autocomplete
+              multiple
+              id="tags-autocomplete"
+              options={allTags.map((option: string) => option)}
+              freeSolo
+              style={{
+                marginTop: 28,
+              }}
+              renderTags={(value: readonly string[], getTagProps) =>
+                value.map((option: string, index: number) => (
+                  <Chip
+                    variant="outlined"
+                    label={option}
+                    {...getTagProps({ index })}
+                  />
+                ))
+              }
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label="Tags"
+                  placeholder="Tags"
+                />
+              )}
+            />
+            <Autocomplete
+              multiple
+              id="facilitator-autocomplete"
+              options={facilitators.map((option: string) => option)}
+              freeSolo
+              style={{
+                marginTop: 28,
+              }}
+              renderTags={(value: readonly string[], getTagProps) =>
+                value.map((option: string, index: number) => (
+                  <Chip
+                    variant="outlined"
+                    label={option}
+                    {...getTagProps({ index })}
+                  />
+                ))
+              }
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label="Facilitators"
+                  placeholder="Facilitators"
+                />
+              )}
+            />
+            <div
+              style={{
+                marginTop: 28,
+                flexDirection: "column",
+                display: "flex",
+              }}
             >
-              {levelOfCare.map((name: string) => (
-                <MenuItem key={name} value={name}>
-                  {name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormGroup sx={{ marginTop: 4 }}>
-            <FormControlLabel
-              control={<Checkbox defaultChecked />}
-              label="is Repeated?"
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <div>
+                  <DateTimePicker
+                    label="Pick start date and time"
+                    value={startTime}
+                    onChange={(value: Date) => handleChangeTime(value, "start")}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </div>
+                <div style={{ marginTop: 24 }}>
+                  <DateTimePicker
+                    label="Pick end date and time"
+                    value={endTime}
+                    onChange={(value: Date) => handleChangeTime(value, "end")}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </div>
+              </LocalizationProvider>
+            </div>
+          </>
+        ) : (
+          <>
+            <TextField
+              margin="dense"
+              id="firstName"
+              label="First Name"
+              fullWidth
+              variant="standard"
             />
-            <FormControlLabel
-              control={<Checkbox color="secondary" />}
-              label="All Day Event"
+            <TextField
+              margin="dense"
+              id="lastName"
+              label="Last Name"
+              fullWidth
+              variant="standard"
             />
-          </FormGroup>
-          <Autocomplete
-            multiple
-            id="hobbies-autocomplete"
-            options={hobbies.map((option: string) => option)}
-            freeSolo
-            style={{
-              marginTop: 28,
-            }}
-            renderTags={(value: readonly string[], getTagProps) =>
-              value.map((option: string, index: number) => (
-                <Chip
-                  variant="outlined"
-                  label={option}
-                  {...getTagProps({ index })}
-                />
-              ))
-            }
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                variant="outlined"
-                label="Hobbies"
-                placeholder="Hobbies"
-              />
-            )}
-          />
-          <Autocomplete
-            multiple
-            id="tags-autocomplete"
-            options={allTags.map((option: string) => option)}
-            freeSolo
-            style={{
-              marginTop: 28,
-            }}
-            renderTags={(value: readonly string[], getTagProps) =>
-              value.map((option: string, index: number) => (
-                <Chip
-                  variant="outlined"
-                  label={option}
-                  {...getTagProps({ index })}
-                />
-              ))
-            }
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                variant="outlined"
-                label="Tags"
-                placeholder="Tags"
-              />
-            )}
-          />
-          <Autocomplete
-            multiple
-            id="facilitator-autocomplete"
-            options={facilitators.map((option: string) => option)}
-            freeSolo
-            style={{
-              marginTop: 28,
-            }}
-            renderTags={(value: readonly string[], getTagProps) =>
-              value.map((option: string, index: number) => (
-                <Chip
-                  variant="outlined"
-                  label={option}
-                  {...getTagProps({ index })}
-                />
-              ))
-            }
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                variant="outlined"
-                label="Facilitators"
-                placeholder="Facilitators"
-              />
-            )}
-          />
-          <div
-            style={{ marginTop: 28, flexDirection: "column", display: "flex" }}
-          >
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <div>
-                <DateTimePicker
-                  label="Pick start date and time"
-                  value={startTime}
-                  onChange={(value: Date) => handleChangeTime(value, "start")}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </div>
-              <div style={{ marginTop: 24 }}>
-                <DateTimePicker
-                  label="Pick end date and time"
-                  value={endTime}
-                  onChange={(value: Date) => handleChangeTime(value, "end")}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </div>
-            </LocalizationProvider>
-          </div>
-        </>
+            <TextField
+              margin="dense"
+              id="preferredName"
+              label="Preferred Name"
+              fullWidth
+              variant="standard"
+            />
+            <TextField
+              margin="dense"
+              id="roomNumber"
+              label="Room Number"
+              fullWidth
+              variant="standard"
+            />
+            <div
+              style={{
+                marginTop: 28,
+                flexDirection: "column",
+                display: "flex",
+              }}
+            >
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <div>
+                  <DateTimePicker
+                    label="Date of Birth"
+                    value={dob}
+                    onChange={(value: Date) => handleChangeTime(value, "dob")}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </div>
+                <div style={{ marginTop: 24 }}>
+                  <DateTimePicker
+                    label="Move in Date"
+                    value={moveIn}
+                    onChange={(value: Date) =>
+                      handleChangeTime(value, "moveIn")
+                    }
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </div>
+              </LocalizationProvider>
+            </div>
+          </>
+        )}
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
