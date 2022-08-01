@@ -16,8 +16,22 @@ import Chip from "@mui/material/Chip";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import Autocomplete from "@mui/material/Autocomplete";
 
 const levelOfCare = ["INDEPENDENT", "ASSISTED", "MEMORY", "LONGTERM"];
+
+const hobbies = [
+    "READING",
+    "WRITING",
+    "SPORTING",
+    "COOKING",
+    "MUSIC",
+    "ART",
+    "MOVIE",
+    "TV",
+    "GAMES",
+    "OTHER",
+]
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -131,8 +145,37 @@ const GeneralModal = ({
               control={<Checkbox defaultChecked />}
               label="is Repeated?"
             />
-            <FormControlLabel control={<Checkbox color="secondary" />} label="All Day Event" />
+            <FormControlLabel
+              control={<Checkbox color="secondary" />}
+              label="All Day Event"
+            />
           </FormGroup>
+          <Autocomplete
+            multiple
+            id="tags-filled"
+            options={hobbies.map((option: string) => option)}
+            freeSolo
+            style={{
+                marginTop:28
+            }}
+            renderTags={(value: readonly string[], getTagProps) =>
+              value.map((option: string, index: number) => (
+                <Chip
+                  variant="outlined"
+                  label={option}
+                  {...getTagProps({ index })}
+                />
+              ))
+            }
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="outlined"
+                label="Hobbies"
+                placeholder="Hobbies"
+              />
+            )}
+          />
         </>
       </DialogContent>
       <DialogActions>
