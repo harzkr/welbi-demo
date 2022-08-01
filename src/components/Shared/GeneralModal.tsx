@@ -21,17 +21,42 @@ import Autocomplete from "@mui/material/Autocomplete";
 const levelOfCare = ["INDEPENDENT", "ASSISTED", "MEMORY", "LONGTERM"];
 
 const hobbies = [
-    "READING",
-    "WRITING",
-    "SPORTING",
-    "COOKING",
-    "MUSIC",
-    "ART",
-    "MOVIE",
-    "TV",
-    "GAMES",
-    "OTHER",
-]
+  "READING",
+  "WRITING",
+  "SPORTING",
+  "COOKING",
+  "MUSIC",
+  "ART",
+  "MOVIE",
+  "TV",
+  "GAMES",
+  "OTHER",
+];
+
+const allTags = [
+  "reading",
+  "music",
+  "meditation",
+  "movies",
+  "tv",
+  "games",
+  "other",
+  "learning",
+  "memory",
+  "fun",
+  "colors",
+];
+
+const facilitators = [
+  "JANE",
+  "JOE",
+  "JIM",
+  "JACK",
+  "JILL",
+  "HK",
+  "WELBI",
+  "OTHER",
+];
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -152,11 +177,11 @@ const GeneralModal = ({
           </FormGroup>
           <Autocomplete
             multiple
-            id="tags-filled"
+            id="hobbies-autocomplete"
             options={hobbies.map((option: string) => option)}
             freeSolo
             style={{
-                marginTop:28
+              marginTop: 28,
             }}
             renderTags={(value: readonly string[], getTagProps) =>
               value.map((option: string, index: number) => (
@@ -173,6 +198,58 @@ const GeneralModal = ({
                 variant="outlined"
                 label="Hobbies"
                 placeholder="Hobbies"
+              />
+            )}
+          />
+          <Autocomplete
+            multiple
+            id="tags-autocomplete"
+            options={allTags.map((option: string) => option)}
+            freeSolo
+            style={{
+              marginTop: 28,
+            }}
+            renderTags={(value: readonly string[], getTagProps) =>
+              value.map((option: string, index: number) => (
+                <Chip
+                  variant="outlined"
+                  label={option}
+                  {...getTagProps({ index })}
+                />
+              ))
+            }
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="outlined"
+                label="Tags"
+                placeholder="Tags"
+              />
+            )}
+          />
+          <Autocomplete
+            multiple
+            id="facilitator-autocomplete"
+            options={facilitators.map((option: string) => option)}
+            freeSolo
+            style={{
+              marginTop: 28,
+            }}
+            renderTags={(value: readonly string[], getTagProps) =>
+              value.map((option: string, index: number) => (
+                <Chip
+                  variant="outlined"
+                  label={option}
+                  {...getTagProps({ index })}
+                />
+              ))
+            }
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="outlined"
+                label="Facilitators"
+                placeholder="Facilitators"
               />
             )}
           />
