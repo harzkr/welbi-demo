@@ -65,7 +65,6 @@ const DashboardContainer = () => {
   );
 
   React.useEffect(() => {
-    console.log("triggering refetch");
     if (
       programs.data &&
       residents.data &&
@@ -115,8 +114,6 @@ const DashboardContainer = () => {
       setAllAttendees(resAttendees);
     }
   }, [programs, residents, refetching]);
-
-  console.log(residents, programs);
 
   return (
     <Dashboard
