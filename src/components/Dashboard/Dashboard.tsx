@@ -26,7 +26,7 @@ import { UseMutationResult } from "@tanstack/react-query";
 import { RankingInfo, rankItem } from "@tanstack/match-sorter-utils";
 import { DebouncedInput } from "../Shared/DebounceInput";
 import GeneralModal from "../Shared/GeneralModal";
-import { columnsPrograms, columnsAttendees } from "./columns";
+import { columnsPrograms, columnsAttendees, columnHelperAttendees } from "./columns";
 import "./styles.css";
 
 declare module "@tanstack/table-core" {
@@ -94,6 +94,15 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
   const [globalFilterAttendees, setGlobalFilterAttendees] = React.useState("");
   const [value, setValue] = React.useState(0);
 
+  const [modifiedColumns, setModifiedColumns] = React.useState([...columnsAttendees, columnHelperAttendees.display({
+    id: 'actions',
+    cell: (props) => (
+      <>
+        <Button onClick={() => console.log('will trigger')}>Book Program</Button>
+      </>
+    ),
+  })]);
+
   const [programForm, setProgramForm] = React.useState(false);
   const [attendeeForm, setAttendeeForm] = React.useState(false);
 
@@ -120,7 +129,7 @@ const Dashboard: React.FC<DashboardProps> = (props: DashboardProps) => {
 
   const tableAttendees = useReactTable({
     data: props.allAttendees,
-    columns: columnsAttendees,
+    columns: modifiedColumns,
     filterFns: {
       fuzzy: fuzzyFilter,
     },

@@ -21,8 +21,8 @@ interface Programs {
     programsAttended: string[];
   }
 
-const columnHelper = createColumnHelper<Programs>();
-const columnHelperAttendees = createColumnHelper<Attendees>();
+export const columnHelper = createColumnHelper<Programs>();
+export const columnHelperAttendees = createColumnHelper<Attendees>();
 
 export const columnsPrograms = [
   columnHelper.accessor("name", {
