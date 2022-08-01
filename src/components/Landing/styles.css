@@ -7,5 +7,9 @@
 }
 
 .button__container{
-    margin-Top: 1rem !important;
+    margin-top: 2rem !important;
+}
+
+.text__field{
+    margin-top: 2rem !important;
 }

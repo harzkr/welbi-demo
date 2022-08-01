@@ -1,6 +1,7 @@
 import React from "react";
 import { Typography, TextField, Button } from "@mui/material";
 import { email_valid_pattern } from "../../utils/constants";
+import "./styles.css";
 interface LandingProps {
   handleSubmit: (values: string) => void;
 }
@@ -16,7 +17,7 @@ const Landing: React.FunctionComponent<LandingProps> = (
 
   return (
     <div>
-      <div className="content__container" >
+      <div className="content__container">
         <Typography variant="h6">Enter your email</Typography>
 
         <TextField
@@ -24,9 +25,7 @@ const Landing: React.FunctionComponent<LandingProps> = (
           label="Email"
           variant="filled"
           onChange={handleInput}
-          style={{
-            marginTop: "1rem",
-          }}
+          className="text__field"
         />
 
         <Button
