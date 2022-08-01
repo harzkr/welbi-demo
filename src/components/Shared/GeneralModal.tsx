@@ -287,20 +287,26 @@ const GeneralModal = ({
               />
             )}
           />
-          <div style={{ marginTop: 28 }}>
+          <div
+            style={{ marginTop: 28, flexDirection: "column", display: "flex" }}
+          >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DateTimePicker
-                label="Pick start date and time"
-                value={startTime}
-                onChange={(value: Date) => handleChangeTime(value, "start")}
-                renderInput={(params) => <TextField {...params} />}
-              />
-              <DateTimePicker
-                label="Pick end date and time"
-                value={endTime}
-                onChange={(value: Date) => handleChangeTime(value, "end")}
-                renderInput={(params) => <TextField {...params} />}
-              />
+              <div>
+                <DateTimePicker
+                  label="Pick start date and time"
+                  value={startTime}
+                  onChange={(value: Date) => handleChangeTime(value, "start")}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </div>
+              <div style={{ marginTop: 24 }}>
+                <DateTimePicker
+                  label="Pick end date and time"
+                  value={endTime}
+                  onChange={(value: Date) => handleChangeTime(value, "end")}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </div>
             </LocalizationProvider>
           </div>
         </>
